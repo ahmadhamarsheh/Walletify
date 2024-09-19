@@ -2,7 +2,65 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="bg-primary text-white py-5">
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <h1 class="display-3">Welcome to Walletify</h1>
+            <p class="lead">
+                Organize and manage your finances with ease.
+            </p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="/Account/Login" class="btn btn-outline-dark btn-lg px-4 me-sm-3">Login</a>
+                <a href="/Account/Register" class="btn btn-outline-secondary btn-lg px-4">Get Started</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="container py-5">
+    <div class="row text-center mb-4">
+        <div class="col-lg-8 mx-auto">
+            <h2 class="fw-light">Features</h2>
+            <p class="lead text-muted">What Walletify can offer</p>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Feature 1 -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Track Your Expenses</h5>
+                    <p class="card-text">Monitor your spending and see where your money goes.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Feature 2 -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Accounts</h5>
+                    <p class="card-text">Link your bank accounts and cards for a unified view.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Feature 3 -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Secure Transactions</h5>
+                    <p class="card-text">All your transactions are encrypted and secure.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Call to Action Section -->
+<div class="bg-primary text-white py-5">
+    <div class="container text-center">
+        <h2 class="display-4">Ready to take control of your finances?</h2>
+        <p class="lead">Sign up today and start managing your money better with Walletify.</p>
+        <a href="/Account/Register" class="btn btn-outline-dark btn-lg">Create an Account</a>
+    </div>
 </div>
