@@ -1,0 +1,146 @@
+﻿body {
+    min-height: 100vh;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.wrapper {
+    background-color: #fff;
+    max-width: 35rem;
+    width: 100%;
+    height: fit-content;
+    border-radius: 15px;
+    box-shadow: 0 15px 20px rgba(0,0,0,0.1);
+}
+.wrapper .title {
+        line-height: 100px;
+        width: 100%;
+        text-align: center;
+        font-size: 35px;
+        font-weight: 600;
+        background: linear-gradient(135deg, #50c878 10%, #3d9970 100%);
+        color: #fff;
+        border-radius: 15px 15px 0 0;
+        cursor: pointer;
+    }
+.wrapper form {
+        width: 100%;
+        padding: 10px 30px 50px;
+}
+form .column .field {
+    height: 2.2rem;
+    min-width: calc(50%);
+    position: relative;
+    margin-top: 1rem;
+}
+form .column .field input,
+form .button button {
+    height: 100%;
+    width: 100%;
+    border-radius: 1.5rem;
+    border: solid 1px lightgray;
+    font-size: 1rem;
+    padding-left: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+form .column .field input:focus {
+    border-color: rgb(25, 135, 84);
+}
+form .column .field label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #999;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+form .column .field input:focus ~ label,
+form .column .field input:valid ~ label {
+    top: 0%;
+    transform: translateY(-50%);
+    background-color: #fff;
+    font-size: 16px;
+    color: rgb(25, 135, 84);
+}
+form .button button {
+    margin-top: 1rem;
+    height: 50px;
+    width: 100%;
+    background: linear-gradient(135deg, #50c878 10%, #3d9970 100%);
+    color: #fff;
+    padding-left: 0;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3S ease;
+}
+form .button button:active {
+    transform: scale(0.95);
+}
+form .button button:hover {
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #3d9970 10%, #50c878 100%);
+}
+form .signin-link {
+    text-align: center;
+    color: #262622;
+    margin-top: 20px;
+}
+form .signin-link a {
+    text-decoration: none;
+    color: rgb(25, 135, 84);
+    margin: 8px 0 0 10px;
+}
+form .signin-link a:hover {
+    text-decoration: underline;
+}
+.container .img {
+    width: 30rem;
+}
+@media(max-width: 1050px) {
+    .container .img {
+        display: none;
+    }
+
+    .wrapper {
+        max-width: 80rem;
+        min-width: 40rem;
+        width: 100%;
+    }
+    form .column {
+        justify-content: space-between !important;
+    }
+    
+}
+@media(max-width: 800px) {
+    .wrapper {
+        max-width: 80rem;
+        min-width: 20rem;
+        width: 100%;
+    }
+    .wrapper .title {
+        line-height: 65px;
+        font-size: 28px;
+        font-weight: 600;
+    }
+    .wrapper form {
+        padding: 10px 30px 25px;
+    }
+    form .column .field input:focus ~ label,
+    form .column .field input:valid ~ label {
+        font-size: 0.6rem;
+    }
+}
+@media(max-width: 520px) {
+    form .column .field label{
+        font-size: 0.8rem;
+    }
+}
+/* Footer*/
+footer {
+    position: absolute;
+    bottom: 0;
+}
