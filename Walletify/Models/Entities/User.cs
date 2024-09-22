@@ -8,9 +8,9 @@ namespace Walletify.Models.Entities
         [Required]
         [RegularExpression(@"^[a-zA-Z][a-zA-Z0-9._]{4,20}$")]
         public string UserName { get; set; }
-        [RegularExpression(@"^[a-zA-Z]$")]
+        [RegularExpression(@"^[a-zA-Z]${4,10}")]
         public string FirstName { get; set; }
-        [RegularExpression(@"^[a-zA-Z]$")]
+        [RegularExpression(@"^[a-zA-Z]${4,15}")]
         public string LastName { get; set; }
         [Required]
         [RegularExpression(@"^[^@\s]+@+[^@\s]+\.+[^@\s]+$", ErrorMessage = "Invalid Email")]
@@ -20,7 +20,9 @@ namespace Walletify.Models.Entities
             ErrorMessage = "The Password must be at least 8 characters long and, " +
             "contains one special character, one number, one uppercase, and one lower case")]
         public string Password { get; set; }
+        [Required]
         public decimal Balance { get; set; }
+        [Required]
         public decimal SavedAmountPerMonth { get; set; }
         public DateTime CreationDate { get; set; } = DateTime.Now;
 
