@@ -35,3 +35,9 @@ footer {
     bottom: 0;
     height: 4rem;
 }
+
+@media(max-width: 450px){
+    footer .container {
+        font-size: 12px !important;
+    }
+}
