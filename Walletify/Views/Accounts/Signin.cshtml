@@ -4,9 +4,9 @@
 @section CustomCss {
     <link rel="stylesheet" href="~/css/StyleSignin.css" asp-append-version="true" />
 }
-    <section class="">
-    <div class="container d-flex justify-content-around align-items-center gap-5">
-        <div class="wrapper d-flex justify-content-center align-items-center flex-column">
+    <section class="d-flex justify-content-center align-items-center pt-3">
+    <div class="container  d-flex align-items-center">
+        <div class="content w-50">
             <div class="title text-center text-capitalize fw-bolder">login form</div>
             <form asp-action="" asp-controller="">
                 <div class="field">
@@ -24,7 +24,7 @@
                 <div class="signup-link">Don't have an account?<a asp-action="Register" asp-controller="Accounts">Signup</a></div>
             </form>
         </div>
-        <div class="img">
+        <div class="img w-50" >
              <img src="@Url.Content("~/Images/signin.png")" class="w-100 h-100" />
         </div>
     </div>
