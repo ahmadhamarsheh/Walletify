@@ -4,12 +4,11 @@
 @section CustomCss {
     <link rel="stylesheet" href="~/css/StyleRegister.css" asp-append-version="true" />
 }
-    <section>
-    <div class="container d-flex align-items-center justify-content-around gap-5">
-        <div class="wrapper d-flex align-items-center justify-content-center flex-column">
-            <div class="title text-center text-capitalize">register form</div>
-            <form asp-action="Register" asp-controller="Accounts" class="">
-                <div class="column d-flex  justify-content-around w-100">
+<section class = "d-flex justify-content-center align-items-center pt-3">
+    <div class = "container  d-flex align-items-center">
+        <div class="content">
+            <div class="title text-center text-capitalize fw-bolder">Register form</div>
+            <form asp-action="Register" asp-controller="Accounts" class="d-flex align-items-center justify-content-between flex-wrap">
                     <div class="field">
                         <input type="email" required />
                         <label>Email Address</label>
@@ -18,8 +17,6 @@
                         <input type="text" required />
                         <label>Username</label>
                     </div>
-                </div>
-                <div class="column d-flex gap-2 w-100 justify-content-around">
                     <div class="field">
                         <input type="text" required />
                         <label>First Name</label>
@@ -28,8 +25,6 @@
                         <input type="text" required />
                         <label>Last Name</label>
                     </div>
-                </div>
-                <div class="column  d-flex d-flex gap-2 w-100 justify-content-around">
                     <div class="field">
                         <input type="password" required />
                         <label>Password</label>
@@ -38,8 +33,6 @@
                         <input type="password" required />
                         <label>Confirm Password</label>
                     </div>
-                </div>
-                <div class="column  d-flex d-flex gap-2 w-100 justify-content-around">
                     <div class="field">
                         <input type="number" required />
                         <label>Balance</label>
@@ -48,11 +41,12 @@
                         <input type="number" required />
                         <label>Saved Per Month</label>
                     </div>
-                </div>
-                <div class="feild button">
-                    <button asp-action="Signin" asp-controller="Accounts" class="text-center text-capitalize">register</button>
-                </div>
-                <div class="signin-link">Already have an account?<a asp-action="Signin" asp-controller="Accounts">Login</a></div>
+                <div class="column d-flex justify-content-center align-items-center flex-column">
+                    <div class="feild button w-100">
+                        <button asp-action="Signin" asp-controller="Accounts" class="text-center text-capitalize">register</button>
+                    </div>
+                    <div class="signin-link w-100">Already have an account?<a asp-action="Signin" asp-controller="Accounts">Login</a></div>
+                 </div>
             </form>
         </div>
         <div class="img">
