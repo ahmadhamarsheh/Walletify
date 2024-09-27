@@ -3,92 +3,34 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Walletify</title>
+    <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Common CSS -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Walletify.styles.css" asp-append-version="true" />
-    <style>
-
-    </style>
+    <!-- Section for page-specific CSS -->
+    @RenderSection("CustomCss", required: false)
 </head>
 <body>
-    <!-- Nav Bar -->
-    <nav class="navbar navbar-expand-lg" data-bs-theme="dark">
-        <a class="navbar-brand" onclick="toggleNav()"><img src="~/images/LogoGsgWhite.png" alt="Logo" style="height:50px;" class="d-inline-block align-text-top" /></a>
-        <div class="search-box" style="margin-left: 30%;">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="Search">
-        </div>
-    </nav>
-
-    <!-- Side Menu -->
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">Dashboard</a>
-        <a href="#">Transactions</a>
-        <a href="#">Accounts</a>
-        <a href="#">Reports</a>
-        <a href="#">My Profile</a>
-        <a href="#">Settings</a>
-        <a href="#">Logout</a>
-    </div>
-
-    <!-- Main content area -->
-    <div id="main">
-        <!-- User profile icon and dropdown -->
-        <div class="user-profile" onclick="toggleDropdown()">
-            <img src="https://via.placeholder.com/50" alt="User">
-        </div>
-
-        <div class="dropdown-menu-right">
-            <a href="#">Account Settings</a>
-            <a href="#">Logout</a>
-        </div>
-
-        <div class="container mt-5">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-light py-4 mt-5">
-        <div class="container text-center">
-            <p class="text-muted">&copy; 2024 Walletify. All rights reserved.</p>
-            <a href="/Home/Privacy" class="text-muted">Privacy Policy</a>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script>
-        function toggleNav() {
-            var sidenav = document.getElementById("mySidenav");
-            if (sidenav.style.width === "250px") {
-                closeNav();
-            } else {
-                openNav();
-            }
-        }
-
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-            document.getElementById("main").style.marginLeft = "250px";
-        }
-
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-            document.getElementById("main").style.marginLeft = "0";
-        }
-
-        function toggleDropdown() {
-            var dropdown = document.querySelector('.dropdown-menu-right');
-            dropdown.classList.toggle('active');
-        }
-    </script>
-    @await RenderSectionAsync("Scripts", required: false)
+        <!-- Nav Bar -->
+        <nav class="d-flex align-items-center justify-content-between">
+            <div class="container">
+                <a class="navbar-brand" onclick="toggleNav()"><img src="~/images/LogoGsgWhite.png" alt="Logo" style="height:50px;" class="d-inline-block align-text-top" /></a>
+                <div class="search-box" style="margin-left: 30%;">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search">
+                </div>
+            </div>
+        </nav>
+        <!-- Main content area -->
+        <main>
+        @RenderBody()
+        </main>
+        <!-- Footer -->
+        <footer class="d-flex align-items-center justify-content-center flex-column">
+            <div class="container text-white  d-flex justify-content-center align-items-center flex-column fs-6">
+                <span class="">© 2024 Walletify. All rights reserved.</span>
+                <a>Privacy Policy</a>
+            </div>
+        </footer>
 </body>
 </html>
