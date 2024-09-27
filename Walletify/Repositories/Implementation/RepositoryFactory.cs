@@ -1,8 +1,4 @@
-﻿using DAL.Repositories.CategoryRepos;
-using DAL.Repositories.TransactionRepos;
-using DAL.Repositories.UserRepos;
-using Walletify.ApplicationDbContext;
-using Walletify.Models.Repositories.Implementation;
+﻿using Walletify.ApplicationDbContext;
 using Walletify.Repositories.Interfaces;
 
 namespace Walletify.Repositories.Implementation
