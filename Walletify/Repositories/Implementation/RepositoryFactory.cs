@@ -1,15 +1,16 @@
-﻿using DAL.Categories.CategoryRepos;
-using DAL.Repositories.CategoryRepos;
+﻿using DAL.Repositories.CategoryRepos;
 using DAL.Repositories.TransactionRepos;
 using DAL.Repositories.UserRepos;
 using Walletify.ApplicationDbContext;
+using Walletify.Models.Repositories.Implementation;
+using Walletify.Repositories.Interfaces;
 
-namespace DAL.Repositories.RepositoryFactory
+namespace Walletify.Repositories.Implementation
 {
     public class RepositoryFactory : IRepositoryFactory
     {
         private readonly AppDbContext _appDBContext;
-   
+
 
         private ITransactionRepository _transaction;
         private IUserRepository _user;

@@ -1,6 +1,6 @@
 ﻿using Walletify.Models.Entities;
 
-namespace DAL.Repositories.UserRepos
+namespace Walletify.Repositories.Interfaces
 {
     public interface IUserRepository : IRepositoryBase<User>
     {

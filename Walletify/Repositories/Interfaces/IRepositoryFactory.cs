@@ -1,8 +1,4 @@
-﻿using DAL.Categories.CategoryRepos;
-using DAL.Repositories.TransactionRepos;
-using DAL.Repositories.UserRepos;
-
-namespace DAL.Repositories.RepositoryFactory
+﻿namespace Walletify.Repositories.Interfaces
 {
     public interface IRepositoryFactory
     {

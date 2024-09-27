@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using Walletify.ApplicationDbContext;
+using Walletify.Repositories.Interfaces;
 
-namespace DAL.Repositories
+namespace Walletify.Repositories.Implementation
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {

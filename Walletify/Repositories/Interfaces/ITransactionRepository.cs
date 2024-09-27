@@ -1,6 +1,6 @@
 ﻿using System.Transactions;
 
-namespace DAL.Repositories.TransactionRepos
+namespace Walletify.Repositories.Interfaces
 {
     public interface ITransactionRepository : IRepositoryBase<Transaction>
     {

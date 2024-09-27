@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using Walletify.ApplicationDbContext;
+using Walletify.Repositories.Implementation;
+using Walletify.Repositories.Interfaces;
 namespace Walletify
 {
     public class Program
@@ -14,6 +16,9 @@ namespace Walletify
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
             );
+            // Configure Factory
+            builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();
+
             var app = builder.Build();
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

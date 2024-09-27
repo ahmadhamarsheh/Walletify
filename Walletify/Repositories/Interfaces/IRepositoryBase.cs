@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace DAL.Repositories
+namespace Walletify.Repositories.Interfaces
 {
     public interface IRepositoryBase<T>
     {
