@@ -36,7 +36,7 @@ namespace Walletify
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Accounts}/{action=Index}/{id?}");
 
             app.Run();
         }
