@@ -8,6 +8,10 @@ namespace Walletify.Controllers
         {
             return View();
         }
+        public IActionResult Deposit()
+        {
+            return View();
+        }
 
         public IActionResult UpdateTransaction()
         {

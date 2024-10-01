@@ -1,0 +1,164 @@
+﻿body {
+    position: relative;
+    min-height: 100vh !important;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+section{
+    margin: 8rem 0;
+}
+.header {
+    position: relative;
+    width: 20%;
+    border-radius: 4px;
+    cursor: pointer;
+    overflow: hidden;
+}
+.header::before{
+    content: 'DEPOSIT';
+    position: absolute;
+    border-radius: 4px;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    font-size: 30px;
+    font-weight: 700;
+    color: rgb(25, 135, 84);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: all ease-in-out 0.4s;
+}
+.header:hover::before {
+    left: -250px;
+}
+
+.header .image{
+    position: relative;
+    left:250px;
+    transition: all ease-in-out 0.4s;
+}
+.header:hover .image {
+    left: 0;
+}
+form .row-field{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.row-field .col-field {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 180px;
+    width: 50%;
+    margin: 0 2rem;
+}
+.col-field .input-box {
+    position: relative;
+    width: 100%;
+    height: 80px;
+    margin: 20px 0;
+}
+.input-box input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: solid 2px lightgray;
+    border-radius: 6px;
+    outline: none;
+    font-size: 1rem;
+    padding-left: 1rem;
+    transition: all 0.4s ease;
+}
+.input-box label {
+    position: relative;
+    top: 50%;
+    left: 18px;
+    transform: translateY(-50%);
+    color: #636c72;
+    font-size: 15px;
+    pointer-events: none;
+    transition: all 0.4s ease;
+}
+.input-box input:focus,
+.input-box input:valid,
+.message-box textarea:focus,
+.message-box textarea:valid {
+    border-color: rgb(25, 135, 84);
+    background-color: #fff;
+}
+.input-box input:focus ~label,
+.input-box input:valid ~label{
+    font-size: 16px;
+    background-color: #fff;
+    top:0;
+    left:12px;
+    transform: translateY(-50%);
+    color: rgb(25, 135, 84);
+}
+.col-field .message-box {
+    position: relative;
+    width: 20rem;
+    height: 140px;
+}
+.message-box textarea {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    resize: none;
+    border-radius: 6px;
+    outline: none;
+    border: 2px solid lightgray;
+    font-size: 16px;
+    padding-left: 16px;
+    transition: all 0.4s ease;
+}
+.message-box textarea::before{
+    content: 'Note';
+    top: 6px;
+    left: 18px;
+    color: #636c72;
+    font-size: 16px;
+    pointer-events: none;
+    transition: all 0.4s ease;
+    z-index: 1;
+}
+.message-box textarea:focus ~ label,
+.message-box textarea:valid ~ label {
+    display: none;
+}
+.row-field.button {
+    margin: auto;
+    margin-top: 2rem;
+    width: 85%;
+    height: 2.2rem;
+}
+.row-field.button button{
+   width: 100%;
+   height: 100%;
+   background: linear-gradient(135deg, #50c878 10%, #3d9970 100%);
+    color: #fff;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.4s ease;
+}
+    .row-field.button button:hover {
+        background: linear-gradient(135deg, #3d9970 10%, #3d9970#50c878 100%);
+        letter-spacing: 1px;
+    }
+
+/* Footer*/
+footer {
+    position: absolute;
+    bottom: 0;
+}
