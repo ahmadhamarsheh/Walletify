@@ -163,51 +163,69 @@ form .row-field {
      background: linear-gradient(135deg, #3d9970 10%, #50c878 100%);
      letter-spacing: 1px;
 }
-@media(max-width: 770px){
-    section{
-        margin: 5rem 0;
+@media(max-width: 1024px) {
+    .header {
+        width: 25%;
     }
-    .container{
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-    }
-    .header{
-        width: 45%;
-
-    }
-    .header::before{
+    .header::before {
         font-size: 20px;
-    }
-}
-@media (max-width: 350px){
-    .header{
-        width: 30%;
-
-    }
-    .header::before{
-        font-size: 15px;
-    }
-    .row-field .input-box {
-        margin: 10px 0;
-        height: 2.5rem;
-    }
-    .header::before{
-        font-size: 15px;
-    }
-    .row-field textarea {
-        min-height: 2rem;
-        height: 100%;
-
-    }
+     }
     .button button{
-        height: 1.9rem;
+        height: 2.5rem;
+        margin-bottom: 20px;
     }
 }
+    @media(max-width: 770px) {
+        section {
+            margin: 5rem 0;
+        }
 
-/* Footer*/
-footer {
-    position: absolute;
-    bottom: 0;
-}
+        .container {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .header {
+            width: 45%;
+        }
+
+            .header::before {
+                font-size: 20px;
+            }
+    }
+
+    @media (max-width: 350px) {
+        .header {
+            width: 30%;
+        }
+
+            .header::before {
+                font-size: 15px;
+            }
+
+        .row-field .input-box {
+            margin: 10px 0;
+            height: 2.5rem;
+        }
+
+        .header::before {
+            font-size: 15px;
+        }
+
+        .row-field textarea {
+            min-height: 2rem;
+            height: 100%;
+        }
+
+        .button button {
+            height: 1.9rem;
+        }
+    }
+
+    /* Footer*/
+    footer {
+        position: absolute;
+        bottom: 0;
+    }
 }

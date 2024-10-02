@@ -163,6 +163,20 @@ form .row-field {
      background: linear-gradient(135deg, #3d9970 10%, #50c878 100%);
      letter-spacing: 1px;
 }
+@media(max-width: 1024px) {
+    .header {
+        width: 15%;
+    }
+
+        .header::before {
+            font-size: 20px;
+        }
+
+    .button button {
+        height: 2.5rem;
+        margin-bottom: 20px;
+    }
+}
 @media(max-width: 770px){
     section{
         margin: 5rem 0;

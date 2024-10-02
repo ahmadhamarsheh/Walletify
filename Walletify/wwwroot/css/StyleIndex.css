@@ -99,7 +99,7 @@ header .text-content .title{
     width: 100px;
     padding: 3px;
 }
-@media(max-width: 1000px){
+@media(max-width: 1400px){
     .features .feature {
         max-width: calc(50% - 20px) !important;
         margin-bottom: 15px !important;
