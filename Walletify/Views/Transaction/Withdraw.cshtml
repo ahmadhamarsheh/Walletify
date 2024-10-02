@@ -1,14 +1,15 @@
-﻿@{
-    ViewBag.Title = "Walletify-Deposit";
+﻿
+@{
+    ViewBag.Title = "Walletify-Withdraw";
 }
 @section CustomCss {
-    <link rel="stylesheet" href="~/css/StyleDeposit.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/StyleWithdraw.css" asp-append-version="true" />
 }
 <section>
     <div class="container">
         <div class="header">
             <div class="image">
-                <img src="@Url.Content("~/Images/Deposit.jpg")" class="w-100 h-100" />
+                <img src="@Url.Content("~/Images/withdraw.jpg")" class="w-100 h-100" />
             </div>
         </div>
         <form>
@@ -27,8 +28,7 @@
                     <label for="">Note</label>
             </div>
             <div class="button">
-                <button asp-action="Signin" asp-controller="Accounts" class="text-center text-capitalize">Deposit Now</button>
+                <button asp-action="Signin" asp-controller="Accounts" class="text-center text-capitalize">Withdraw Now</button>
             </div>
         </form>
     </div>
-</section>

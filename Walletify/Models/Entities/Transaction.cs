@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Walletify.Models.Entities
 {
     public enum TransationType {
-        DEPOSIT, WITHDRAWAL
+        DEPOSIT, WITHDRAW
     }
     public class Transaction
     {

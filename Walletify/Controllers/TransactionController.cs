@@ -12,7 +12,10 @@ namespace Walletify.Controllers
         {
             return View();
         }
-
+        public IActionResult Withdraw()
+        {
+            return View();
+        }
         public IActionResult UpdateTransaction()
         {
             return View();

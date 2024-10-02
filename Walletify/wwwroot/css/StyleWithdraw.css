@@ -12,13 +12,13 @@ section{
 }
 .header {
     position: relative;
-    width: 20%;
+    width: 30%;
     border-radius: 4px;
     cursor: pointer;
     overflow: hidden;
 }
 .header::before{
-    content: 'DEPOSIT';
+    content: 'WITHDRAW';
     position: absolute;
     border-radius: 4px;
     top:0;
@@ -26,7 +26,7 @@ section{
     width: 100%;
     height: 100%;
     background: #fff;
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 700;
     color: rgb(25, 135, 84);
     display:flex;
@@ -173,30 +173,35 @@ form .row-field {
         flex-direction: column;
     }
     .header{
-        width: 38%;
+        width: 45%;
 
     }
     .header::before{
-        font-size: 25px;
+        font-size: 20px;
     }
 }
-@media (max-width: 500px){
+@media (max-width: 350px){
     .header{
-        width: 70px;
-        height: 70px
+        width: 30%;
 
+    }
+    .header::before{
+        font-size: 15px;
     }
     .row-field .input-box {
         margin: 10px 0;
+        height: 2.5rem;
     }
-        .header::before{
+    .header::before{
         font-size: 15px;
     }
-    row-field textarea {
-        min-height: 60px;
+    .row-field textarea {
+        min-height: 2rem;
+        height: 100%;
+
     }
     .button button{
-        height: 2rem;
+        height: 1.9rem;
     }
 }
 
@@ -204,4 +209,5 @@ form .row-field {
 footer {
     position: absolute;
     bottom: 0;
+}
 }
