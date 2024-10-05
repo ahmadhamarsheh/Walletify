@@ -4,56 +4,47 @@
 @section CustomCss {
     <link rel="stylesheet" href="~/css/StyleRegister.css" asp-append-version="true" />
 }
-<section class = "d-flex justify-content-center align-items-center pt-3">
-    <div class = "container  d-flex align-items-center">
+<section class="d-flex justify-content-center align-items-center pt-3">
+    <div class="container  d-flex align-items-center">
         <div class="content">
             <div class="title text-center text-capitalize fw-bolder">Register form</div>
             <form asp-action="Register" asp-controller="Accounts" class="d-flex align-items-center justify-content-between flex-wrap">
-                    <div class="field">
-                        <input type="email" required />
-                        <label>Email Address</label>
-                    </div>
-                    <div class="field">
-                        <input type="text" required />
-                        <label>Username</label>
-                    </div>
-                    <div class="field">
-                        <input type="text" required />
-                        <label>First Name</label>
-                    </div>
-                    <div class="field">
-                        <input type="text" required />
-                        <label>Last Name</label>
-                    </div>
-                    <div class="field">
-                        <input type="password" required />
-                        <label>Password</label>
-                    </div>
-                    <div class="field">
-                        <input type="password" required />
-                        <label>Confirm Password</label>
-                    </div>
-                    <div class="field">
-                        <input type="number" required />
-                        <label>Balance</label>
-                    </div>
-                    <div class="field">
-                        <input type="number" required />
-                        <label>Saved Per Month</label>
-                    </div>
+                <div class="field">
+                    <input type="text" required />
+                    <label>First Name</label>
+                </div>
+                <div class="field">
+                    <input type="text" required />
+                    <label>Last Name</label>
+                </div>
+                <div class="field">
+                    <input type="email" required />
+                    <label>Email Address</label>
+                </div>
+                <div class="field">
+                    <input type="text" required />
+                    <label>Username</label>
+                </div>
+                <div class="field">
+                    <input type="password" required />
+                    <label>Password</label>
+                </div>
+                <div class="field">
+                    <input type="password" required />
+                    <label>Verify Pwd</label>
+                </div>
                 <div class="column d-flex justify-content-center align-items-center flex-column">
                     <div class="feild button w-100">
                         <button asp-action="Signin" asp-controller="Accounts" class="text-center text-capitalize">register</button>
                     </div>
                     <div class="signin-link w-100">Already have an account?<a asp-action="Signin" asp-controller="Accounts">Login</a></div>
-                 </div>
+                </div>
             </form>
         </div>
         <div class="img">
             <img src="@Url.Content("~/Images/register.jpg")" class="w-100 h-100" />
         </div>
-    </div>   
-    </section>
-
+    </div>
+</section>
 
 

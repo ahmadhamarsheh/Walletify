@@ -1,0 +1,231 @@
+﻿body {
+    position: relative;
+    min-height: 100vh !important;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+section{
+    margin: 8rem 0;
+}
+.header {
+    position: relative;
+    width: 30%;
+    border-radius: 4px;
+    cursor: pointer;
+    overflow: hidden;
+}
+.header::before{
+    content: 'WITHDRAW';
+    position: absolute;
+    border-radius: 4px;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    font-size: 28px;
+    font-weight: 700;
+    color: rgb(25, 135, 84);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: all ease-in-out 0.4s;
+}
+.header:hover::before {
+    left: -250px;
+}
+
+.header .image{
+    position: relative;
+    left:250px;
+    transition: all ease-in-out 0.4s;
+}
+
+.header:hover .image {
+    left: 0;
+}
+
+section form {
+    max-width: 1050px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+form .row-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.row-field .input-box {
+    position: relative;
+    width: calc(50% - 20px);
+    height: 50px;
+    margin: 16px 0;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    outline: none;
+    border: 2px solid transparent;
+    background-color: rgb(25, 135, 84, 0.1);
+    font-size: 16px;
+    padding-left: 16px;
+    transition: all 0.4s ease;
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 18px;
+    transform: translateY(-50%);
+    color: rgb(25, 135, 84);
+    font-size: 15px;
+    pointer-events: none;
+    transition: all 0.4s ease;
+}
+.input-box input:focus,
+.input-box input:valid,
+.message-box textarea:focus,
+.message-box textarea:valid {
+    border-color: rgb(25, 135, 84);
+    background-color: #fff;
+}
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label,
+.message-box textarea:focus ~label,
+.message-box textarea:valid ~label{
+     background-color: #fff;
+     top: 0;
+     left: 12px;
+     transform: translateY(-50%);
+     color: rgb(25, 135, 84);
+ }
+.message-box textarea:focus ~label,
+.message-box textarea:valid ~label{
+    top: 14px;
+}
+
+
+.message-box{
+    position: relative;
+}
+
+.row-field textarea {
+    width: 100%;
+    min-height: 100px;
+    resize: none;
+    margin: 1rem 0;
+    border-radius: 6px;
+    outline: none;
+    border: 2px solid transparent;
+    background-color: rgb(25, 135, 84, 0.1);
+    font-size: 16px;
+    padding-left: 16px;
+    transition: all 0.4s ease;
+}
+
+.message-box label {
+    position: absolute;
+    top: 2rem;
+    left: 18px;
+    color: rgb(25, 135, 84);
+    font-size: 16px;
+    pointer-events: none;
+    transition: all 0.4s ease;
+}
+
+.button,
+.button  button{
+    width: 100%;
+}
+.button button{
+   height: 3rem;
+   background: linear-gradient(135deg, #50c878 10%, #3d9970 100%);
+   color: #fff;
+   outline: none;
+   border: none;
+   border-radius: 8px;
+   transition: all 0.4s ease;
+}
+
+.button button:hover {
+     background: linear-gradient(135deg, #3d9970 10%, #50c878 100%);
+     letter-spacing: 1px;
+}
+@media(max-width: 1024px) {
+    .header {
+        width: 25%;
+    }
+    .header::before {
+        font-size: 20px;
+     }
+    .button button{
+        height: 2.5rem;
+        margin-bottom: 20px;
+    }
+}
+    @media(max-width: 770px) {
+        section {
+            margin: 5rem 0;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .header {
+            width: 45%;
+        }
+
+            .header::before {
+                font-size: 20px;
+            }
+    }
+
+    @media (max-width: 350px) {
+        .header {
+            width: 30%;
+        }
+
+            .header::before {
+                font-size: 15px;
+            }
+
+        .row-field .input-box {
+            margin: 10px 0;
+            height: 2.5rem;
+        }
+
+        .header::before {
+            font-size: 15px;
+        }
+
+        .row-field textarea {
+            min-height: 2rem;
+            height: 100%;
+        }
+
+        .button button {
+            height: 1.9rem;
+        }
+    }
+
+    /* Footer*/
+    footer {
+        position: absolute;
+        bottom: 0;
+    }
+}

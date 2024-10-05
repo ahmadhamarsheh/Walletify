@@ -20,5 +20,25 @@ namespace Walletify.ApplicationDbContext
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Account> Accounts { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Category>().HasData(
+                new Category { Id = 1, Name = "Food & Drink", CategoryType = CategoryType.Spending },
+                new Category { Id = 2, Name = "Personal Care", CategoryType = CategoryType.Spending },
+                new Category { Id = 3, Name = "Transportation", CategoryType = CategoryType.Spending },
+                new Category { Id = 4, Name = "Shopping", CategoryType = CategoryType.Spending },
+                new Category { Id = 5, Name = "Investment", CategoryType = CategoryType.Income },
+                new Category { Id = 6, Name = "Housing", CategoryType = CategoryType.Spending },
+                new Category { Id = 7, Name = "Health Care", CategoryType = CategoryType.Spending },
+                new Category { Id = 8, Name = "Bonus", CategoryType = CategoryType.Income },
+                new Category { Id = 9, Name = "Salary", CategoryType = CategoryType.Income },
+                new Category { Id = 10, Name = "Other", CategoryType = CategoryType.Spending },
+                new Category { Id = 11, Name = "Other", CategoryType = CategoryType.Income }
+            );
+        }
+
     }
 }

@@ -11,6 +11,7 @@ namespace Walletify.Repositories.Implementation
         private ITransactionRepository _transaction;
         private IUserRepository _user;
         private ICategoryRepository _category;
+        private IAccountRepositry _account;
         public IUserRepository User
         {
             get
@@ -42,6 +43,18 @@ namespace Walletify.Repositories.Implementation
                     _category = new CategoryRepository(_appDBContext);
                 }
                 return _category;
+            }
+        }
+
+        public IAccountRepositry Account
+        {
+            get
+            {
+                if (_account == null)
+                {
+                    _account = new AccountRepositry(_appDBContext);
+                }
+                return _account;
             }
         }
 
