@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Walletify.ApplicationDbContext;
+using Walletify.DependencyInjection;
 using Walletify.Repositories.Implementation;
 using Walletify.Repositories.Interfaces;
 namespace Walletify
@@ -17,7 +19,9 @@ namespace Walletify
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
             );
             // Configure Factory
-            builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();
+            builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>()
+                .AddIdentityDependencyInjection();
+ 
 
             var app = builder.Build();
             // Configure the HTTP request pipeline.
@@ -32,6 +36,7 @@ namespace Walletify
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

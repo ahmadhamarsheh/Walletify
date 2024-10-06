@@ -36,6 +36,15 @@ footer {
     height: 4rem;
 }
 
+.navbar-brand {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 15; 
+    padding-left: 1rem; 
+}
+
+
 @media(max-width: 450px){
     footer .container {
         font-size: 12px !important;

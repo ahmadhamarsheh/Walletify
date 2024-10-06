@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using Walletify.Models.Entities;
 
 namespace Walletify.ApplicationDbContext
 {
-    public class AppDbContext: DbContext
+    public class AppDbContext: IdentityDbContext
     {
         private readonly IConfiguration _configuration;
         public AppDbContext(IConfiguration configuration, DbContextOptions<AppDbContext> options) : base(options)
@@ -38,6 +40,15 @@ namespace Walletify.ApplicationDbContext
                 new Category { Id = 10, Name = "Other", CategoryType = CategoryType.Spending },
                 new Category { Id = 11, Name = "Other", CategoryType = CategoryType.Income }
             );
+
+            modelBuilder.Entity<IdentityUser>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
+            modelBuilder.Entity<IdentityUser>()
+                .HasIndex(u => u.UserName);
+
+
         }
 
     }
