@@ -112,7 +112,7 @@ namespace Walletify.Controllers
             return RedirectToAction("Index", "Accounts");
         }
         
-                public IActionResult Dashboard()
+        public IActionResult Dashboard()
         {
             double target = 10000;
             double balance = 1000;
@@ -123,6 +123,11 @@ namespace Walletify.Controllers
             ViewBag.target = target;
             ViewBag.balance = balance;
 
+            return View();
+        }
+
+        public IActionResult Profile()
+        {
             return View();
         }
         

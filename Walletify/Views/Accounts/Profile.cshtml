@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Walletify-Register";
+}
+@section CustomCss {
+    <link rel="stylesheet" href="~/css/StyleRegister.css" asp-append-version="true" />
+}
+<section class="d-flex justify-content-center align-items-center pt-3">
+    <div class="container  d-flex align-items-center">
+        <div class="content">
+            <div class="title text-center text-capitalize fw-bolder">Profile page</div>
+            <form class="d-flex align-items-center justify-content-between flex-wrap">
+                <div class="field">
+                    <input type="text" required disabled />
+                    <label>Username</label>
+                </div>
+                <div class="field">
+                    <input type="text" required />
+                    <label>First Name</label>
+                </div>
+                <div class="field">
+                    <input type="text" required />
+                    <label>Last Name</label>
+                </div>
+                <div class="field">
+                    <input type="email" required />
+                    <label>Email Address</label>
+                </div>
+                <div class="field">
+                    <input type="password" required />
+                    <label>Password</label>
+                </div>
+                <div class="field">
+                    <input type="text" required />
+                    <label>Saved amount peer month</label>
+                </div>
+                <div class="field">
+                    <input type="text" required />
+                    <label>Target</label>
+                </div>
+                <div class="column d-flex justify-content-center align-items-center flex-column">
+                    <div class="feild button w-100">
+                        <button class="text-center text-capitalize">Update Profile</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="img">
+            <img src="@Url.Content("~/Images/register.jpg")" class="w-100 h-100" />
+        </div>
+    </div>
+</section>
