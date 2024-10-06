@@ -30,6 +30,7 @@ namespace Walletify.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Signin(LoginViewModel model)
         {
@@ -110,5 +111,20 @@ namespace Walletify.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Accounts");
         }
+        
+                public IActionResult Dashboard()
+        {
+            double target = 10000;
+            double balance = 1000;
+
+            double progress = ((balance / target) * 100);
+
+            ViewBag.progress = progress;
+            ViewBag.target = target;
+            ViewBag.balance = balance;
+
+            return View();
+        }
+        
     }
 }
