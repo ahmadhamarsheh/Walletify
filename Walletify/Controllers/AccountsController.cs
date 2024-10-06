@@ -18,5 +18,20 @@ namespace Walletify.Controllers
         {
             return View();
         }
+
+        public IActionResult Dashboard()
+        {
+            double target = 10000;
+            double balance = 1000;
+
+            double progress = ((balance / target) * 100);
+
+            ViewBag.progress = progress;
+            ViewBag.target = target;
+            ViewBag.balance = balance;
+
+            return View();
+        }
+
     }
 }
