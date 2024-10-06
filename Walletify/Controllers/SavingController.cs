@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Walletify.Controllers
 {
+    [Authorize]
     public class SavingController : Controller
     {
         public IActionResult SetValue()

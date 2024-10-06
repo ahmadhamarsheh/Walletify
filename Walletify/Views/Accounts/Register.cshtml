@@ -1,4 +1,7 @@
-﻿@{
+﻿@model RegisterViewModel
+
+
+@{
     ViewBag.Title = "Walletify-Register";
 }
 @section CustomCss {
@@ -9,33 +12,40 @@
         <div class="content">
             <div class="title text-center text-capitalize fw-bolder">Register form</div>
             <form asp-action="Register" asp-controller="Accounts" class="d-flex align-items-center justify-content-between flex-wrap">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="field">
-                    <input type="text" required />
+                    <input asp-for="FirstName" type="text" required />
                     <label>First Name</label>
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
                 </div>
                 <div class="field">
-                    <input type="text" required />
+                    <input asp-for="LastName" type="text" required />
                     <label>Last Name</label>
+                    <span asp-validation-for="LastName" class="text-danger"></span>
                 </div>
                 <div class="field">
-                    <input type="email" required />
+                    <input asp-for="Email" type="email" required />
                     <label>Email Address</label>
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="field">
-                    <input type="text" required />
+                    <input asp-for="UserName" type="text" required />
                     <label>Username</label>
+                    <span asp-validation-for="UserName" class="text-danger"></span>
                 </div>
                 <div class="field">
-                    <input type="password" required />
+                    <input asp-for="Password" type="password" required />
                     <label>Password</label>
+                    <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="field">
-                    <input type="password" required />
-                    <label>Verify Pwd</label>
+                    <input asp-for="ConfirmPassword" type="password" required />
+                    <label>Confirm Password</label>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
                 <div class="column d-flex justify-content-center align-items-center flex-column">
                     <div class="feild button w-100">
-                        <button asp-action="Signin" asp-controller="Accounts" class="text-center text-capitalize">register</button>
+                        <button asp-action="Register" asp-controller="Accounts" class="text-center text-capitalize">register</button>
                     </div>
                     <div class="signin-link w-100">Already have an account?<a asp-action="Signin" asp-controller="Accounts">Login</a></div>
                 </div>
@@ -46,5 +56,11 @@
         </div>
     </div>
 </section>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
 

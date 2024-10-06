@@ -1,4 +1,6 @@
-﻿@{
+﻿@model LoginViewModel
+
+@{
     ViewBag.Title = "Walletify-Login";
 }
 @section CustomCss {
@@ -8,18 +10,33 @@
     <div class="container  d-flex align-items-center">
         <div class="content w-50">
             <div class="title text-center text-capitalize fw-bolder">login form</div>
-            <form asp-action="" asp-controller="">
+
+            <div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </div>
+
+
+            <form asp-action="Signin" asp-controller="Accounts">
                 <div class="field">
-                    <input type="email" required />
+                    <input type="email" asp-for="Email" required />
                     <label>Email Address</label>
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="field">
-                    <input type="password" required />
+                    <input type="password" asp-for="Password" required />
                     <label>Password</label>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+
+                </div>
+                <br />
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
+                    </label>
                 </div>
                 <div class="pass-link"><a asp-action="" asp-controller="Accounts">Forget Password?</a></div>
                 <div class="field">
-                    <button asp-action="" asp-controller="" class="text-center text-capitalize">login</button>
+                    <button type="submit" asp-action="Signin" asp-controller="Accounts" class="text-center text-capitalize">login</button>
                 </div>
                 <div class="signup-link">Don't have an account?<a asp-action="Register" asp-controller="Accounts">Signup</a></div>
             </form>

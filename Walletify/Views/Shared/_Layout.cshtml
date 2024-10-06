@@ -1,12 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject IHttpContextAccessor _contextAccessor;
+@inject SignInManager<IdentityUser> _signInManager;
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" />
     <!-- Common CSS -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/sidemenu.css" asp-append-version="true" />
     <!-- Section for page-specific CSS -->
     @RenderSection("CustomCss", required: false)
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -28,12 +35,97 @@
 
 </head>
 <body>
-        <!-- Nav Bar -->
-        <nav class="d-flex align-items-center justify-content-between">
-            <div class="container">
-                <a class="navbar-brand" asp-action = "Index" asp-controller = "Accounts" onclick="toggleNav()"><img src="~/images/LogoGsgWhite.png" alt="Logo" style="height:50px;" class="d-inline-block align-text-top" /></a>
-            </div>
-        </nav>
+
+    <!-- Nav Bar -->
+    <nav class="d-flex align-items-center justify-content-between">
+        <div class="container">
+            <a class="navbar-brand" onclick="toggleNav()">
+                <img src="~/images/LogoGsgWhite.png" alt="Logo" style="height:50px;" class="d-inline-block align-text-top" />
+            </a>
+        </div>
+    </nav>
+
+    <!-- Sidemenu -->
+    <div id="sidemenu" class="sidemenu">
+        <a href="javascript:void(0)" class="close-btn" onclick="toggleNav()">&times;</a>
+        <li class="nav-item menu-open">
+            <p class="nav-link active" >
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                    
+                </p>
+            </p>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link active">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                    <i class="bi bi-speedometer2"></i>&nbsp;&nbsp;
+                    Dashboard
+                </p>
+            </a>
+        </li>
+        <li class="nav-item ">
+            <a href="#" class="nav-link active">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                    <i class="bi bi-journal-plus"></i>&nbsp;&nbsp;
+                    Deposit
+                </p>
+            </a>
+
+        </li>
+        <li class="nav-item ">
+            <a href="#" class="nav-link active">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                    <i class="bi bi-journal-minus"></i>&nbsp;&nbsp;
+                    Withdraw
+                </p>
+            </a>
+
+        </li>
+        <li class="nav-item ">
+            <a href="#" class="nav-link active">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                    <i class="bi bi-gear"></i>&nbsp;&nbsp;
+                    Account Settings
+                </p>
+            </a>
+        </li>
+        @if (_signInManager.IsSignedIn(User))
+        {
+            <li class="nav-item">
+                <a asp-action="Index" asp-controller="Accounts" class="nav-link active">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                        <i class="bi bi-box-arrow-in-right"></i>&nbsp;&nbsp;
+                        Logout @User.Identity.Name
+                    </p>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a asp-action="Signin" asp-controller="Accounts" class="nav-link active">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                        <i class="bi bi-box-arrow-in-right"></i>&nbsp;&nbsp;
+                        Sign In
+                    </p>
+                </a>
+            </li>
+        }
+
+    </div>
+
+    <!-- Overlay for closing sidemenu -->
+    <div id="overlay" class="overlay" onclick="toggleNav()"></div>
+
+
+
         <!-- Main content area -->
         <main class="main container px-5">
             @RenderBody()
@@ -45,5 +137,13 @@
                 <a>Privacy Policy</a>
             </div>
         </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/sidemenu.js"></script>
+
+    <!-- Scripts section for page-specific JS -->
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
