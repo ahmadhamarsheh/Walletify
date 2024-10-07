@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Walletify.ApplicationDbContext;
+using Walletify.Models.Entities;
 
 namespace Walletify.DependencyInjection
 {
@@ -7,7 +8,7 @@ namespace Walletify.DependencyInjection
     {
         public static IServiceCollection AddIdentityDependencyInjection(this IServiceCollection services)
         {
-            services.AddIdentity<IdentityUser, IdentityRole>(opt =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(opt =>
             {
                 //password settings
                 opt.Password.RequireLowercase = true;
@@ -16,7 +17,7 @@ namespace Walletify.DependencyInjection
                 opt.Password.RequireNonAlphanumeric = true;
                 //lockout settings
                 opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
-                opt.Lockout.AllowedForNewUsers = true;
+                opt.Lockout.AllowedForNewUsers = false;
                 opt.Lockout.MaxFailedAccessAttempts = 5;
 
                 //user setting

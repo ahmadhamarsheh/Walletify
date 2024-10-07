@@ -8,6 +8,7 @@ namespace Walletify.Repositories.Interfaces
         ICategoryRepository Category { get; }
         ITransactionRepository Transaction { get; }
         IAccountRepositry Account { get; }
+        ISavingRepositry Saving { get; }
         void Save();
     }
 }

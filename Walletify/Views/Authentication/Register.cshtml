@@ -1,4 +1,4 @@
-﻿@model RegisterViewModel
+﻿@model Walletify.ViewModel.Identity.RegisterViewModel
 
 
 @{
@@ -11,18 +11,8 @@
     <div class="container  d-flex align-items-center">
         <div class="content">
             <div class="title text-center text-capitalize fw-bolder">Register form</div>
-            <form asp-action="Register" asp-controller="Accounts" class="d-flex align-items-center justify-content-between flex-wrap">
+            <form asp-action="Register" asp-controller="Authentication" class="d-flex align-items-center justify-content-between flex-wrap">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="field">
-                    <input asp-for="FirstName" type="text" required />
-                    <label>First Name</label>
-                    <span asp-validation-for="FirstName" class="text-danger"></span>
-                </div>
-                <div class="field">
-                    <input asp-for="LastName" type="text" required />
-                    <label>Last Name</label>
-                    <span asp-validation-for="LastName" class="text-danger"></span>
-                </div>
                 <div class="field">
                     <input asp-for="Email" type="email" required />
                     <label>Email Address</label>
@@ -45,9 +35,9 @@
                 </div>
                 <div class="column d-flex justify-content-center align-items-center flex-column">
                     <div class="feild button w-100">
-                        <button asp-action="Register" asp-controller="Accounts" class="text-center text-capitalize">register</button>
+                        <button asp-action="Register" asp-controller="Authentication" class="text-center text-capitalize">register</button>
                     </div>
-                    <div class="signin-link w-100">Already have an account?<a asp-action="Signin" asp-controller="Accounts">Login</a></div>
+                    <div class="signin-link w-100">Already have an account?<a asp-action="Signin" asp-controller="Authentication">Login</a></div>
                 </div>
             </form>
         </div>

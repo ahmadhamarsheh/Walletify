@@ -1,129 +1,62 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Walletify.Models.Entities;
 using Walletify.ViewModel.Identity;
-
+using Walletify.ViewModel.Accounts;
+using NuGet.Protocol.Core.Types;
+using Walletify.Repositories.Interfaces;
 namespace Walletify.Controllers
 {
-    
     public class AccountsController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        public AccountsController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IRepositoryFactory _repository;
+
+        public AccountsController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IRepositoryFactory repository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _repository = repository;
         }
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult UpdateAccount()
         {
-            return View();
-        }
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
-        [HttpGet]
-        public IActionResult Signin()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Signin(LoginViewModel model)
-        {
-            if (ModelState.IsValid)
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (userId != null)
             {
-                var user = await _userManager.FindByEmailAsync(model.Email);
-                if(user == null)
+                var account = _repository.Account.FindByCondition(a => a.UserId == userId).First();
+                var accountViewModel = new UpdateAccountViewModel
                 {
-                    ModelState.AddModelError(string.Empty, "Username or Password is wrong");
-                    return View(model);
-                }
-                var validPassword = await _userManager.CheckPasswordAsync(user, model.Password);
-                if(!validPassword)
-                {
-                    ModelState.AddModelError(string.Empty, "Password is wrong");
-                    return View(model);
-                }
-                var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "Accounts");
-                } 
-                else if (result.IsNotAllowed)
-                {
-                    ModelState.AddModelError(string.Empty, "User is not allowed to sign in.");
-                }
-                else if (result.IsLockedOut)
-                {
-                    ModelState.AddModelError(string.Empty, "User is locked out.");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                }
-            }
-            return View(model);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var existingEmailUser = await _userManager.FindByEmailAsync(model.Email);
-                if (existingEmailUser != null)
-                {
-                    
-                    ModelState.AddModelError("Email", "Email is already in use.");
-                    return View(model);
-                }
-                var existingUserNameUser = await _userManager.FindByNameAsync(model.UserName);
-                if (existingUserNameUser != null) 
-                {
-                    ModelState.AddModelError("UserName", "Username is already taken.");
-                    return View(model);
-                }
-                var newUser = new IdentityUser
-                {
-                    UserName = model.UserName,
-                    Email = model.Email
+                    SavedAmountPerMonth = account.SavedAmountPerMonth,
+                    SavingTargetAmount = account.SavingTargetAmount,
                 };
-                var result = await _userManager.CreateAsync(newUser, model.Password);
-                if (result.Succeeded)
-                {
-                    await _signInManager.SignInAsync(newUser, isPersistent: false);
-                    return RedirectToAction("Index", "Accounts");
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+                return View(accountViewModel);
             }
-            return View(model);
+                return NotFound();
         }
-
         [HttpPost]
-        public async Task<IActionResult> Logout()
+        public IActionResult UpdateAccount(UpdateAccountViewModel model)
         {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Accounts");
-        }
-        
-                public IActionResult Dashboard()
-        {
-            double target = 10000;
-            double balance = 1000;
-
-            double progress = ((balance / target) * 100);
-
-            ViewBag.progress = progress;
-            ViewBag.target = target;
-            ViewBag.balance = balance;
-
-            return View();
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (userId != null)
+            {
+                if(ModelState.IsValid)
+                {
+                    var account = _repository.Account.FindByCondition(a => a.UserId == userId).First();
+                    account.SavedAmountPerMonth = model.SavedAmountPerMonth;
+                    account.SavingTargetAmount = model.SavingTargetAmount;
+                    _repository.Account.Update(account);
+                    _repository.Save();
+                    return RedirectToAction("Index", "Dashboard");
+                }
+                return View(model);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }

@@ -5,14 +5,6 @@ namespace Walletify.ViewModel.Identity
     public class RegisterViewModel
     {
         [Required]
-        [RegularExpression(@"^[a-zA-Z]{4,10}$", ErrorMessage = "First Name must be between 4 and 10 characters.")]
-        public string FirstName { get; set; }
-
-        [Required]
-        [RegularExpression(@"^[a-zA-Z]{4,15}$", ErrorMessage = "Last Name must be between 4 and 15 characters.")]
-        public string LastName { get; set; }
-
-        [Required]
         [RegularExpression(@"^[a-zA-Z][a-zA-Z0-9._]{4,20}$", ErrorMessage = "Username must be between 5 and 20 characters.")]
         public string UserName { get; set; }
 

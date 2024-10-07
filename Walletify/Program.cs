@@ -1,10 +1,13 @@
+using Hangfire;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Walletify.ApplicationDbContext;
+using Walletify.Controllers;
 using Walletify.DependencyInjection;
 using Walletify.Repositories.Implementation;
 using Walletify.Repositories.Interfaces;
+using Walletify.ViewModel;
 namespace Walletify
 {
     public class Program
@@ -21,9 +24,29 @@ namespace Walletify
             // Configure Factory
             builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>()
                 .AddIdentityDependencyInjection();
- 
+            // Add auto mapper
+            builder.Services.AddAutoMapper(typeof(Program), typeof(MappingProfile));
+            // Add Hangfire services
+            builder.Services.AddHangfire(config =>
+                config.UseSqlServerStorage(builder.Configuration.GetConnectionString("DefaultConnection"))
+            );
 
+            // Add the Hangfire server
+            builder.Services.AddHangfireServer();
             var app = builder.Build();
+            // Enable Hangfire Dashboard
+            app.UseHangfireDashboard();
+
+            // Map routes for Hangfire Dashboard (optional: secured access can be configured here)
+            app.MapHangfireDashboard();
+
+            // Example of a recurring job
+            RecurringJob.AddOrUpdate<SavingController>(
+                "UpdateSavingTargetAmount",
+                   service => service.UpdateSavingTargetAmount(),
+                  "*/3 * * * *"
+            //Cron.Monthly // Run this on the 1st of every month
+            );
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -39,9 +62,11 @@ namespace Walletify
             app.UseAuthentication();
             app.UseAuthorization();
 
+
+
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Accounts}/{action=Index}/{id?}");
+                pattern: "{controller=Authentication}/{action=Index}/{id?}");
 
             app.Run();
         }

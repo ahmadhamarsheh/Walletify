@@ -1,0 +1,37 @@
+﻿@model Walletify.ViewModel.Accounts.AccountViewModel;
+@{
+    ViewBag.Title = "Walletify- Financial Information";
+}
+@section CustomCss {
+    <link rel="stylesheet" href="~/css/StyleFinancialInformation.css" asp-append-version="true" />
+}
+<section class="d-flex justify-content-center align-items-center pt-3">
+    <div class="container  d-flex align-items-center">
+        <div class="content w-50">
+            <div class="title text-center text-capitalize fw-bolder">Financial</div>
+            <form asp-action="FinancialInformation" asp-controller="Authentication">
+                <div class="field">
+                    <input asp-for="UserId" value= "@ViewBag.id"  type="hidden" />
+                </div>
+                <div class="field">
+                    <input asp-for="Balance" required />
+                    <label asp-for ="Balance">Balance</label>
+                </div>
+                <div class="field">
+                    <input asp-for="SavingTargetAmount" required />
+                    <label asp-for="SavingTargetAmount">Target</label>
+                </div>
+                <div class="field">
+                    <input asp-for="SavedAmountPerMonth" required />
+                    <label asp-for="SavedAmountPerMonth">Saved Per Month</label>
+                </div>
+                <div class="field">
+                    <button asp-action="FinancialInformation" asp-controller="Authentication" class="text-center text-capitalize">Add</button>
+                </div>
+            </form>
+        </div>
+        <div class="img w-50">
+            <img src="@Url.Content("~/Images/Financial.jpg")" class="w-100 h-100" />
+        </div>
+    </div>
+</section>

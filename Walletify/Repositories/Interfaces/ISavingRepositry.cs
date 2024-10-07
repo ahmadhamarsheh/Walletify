@@ -2,7 +2,8 @@
 
 namespace Walletify.Repositories.Interfaces
 {
-    public interface ITransactionRepository : IRepositoryBase<Transaction>
+    public interface ISavingRepositry : IRepositoryBase<Saving>
     {
+
     }
 }

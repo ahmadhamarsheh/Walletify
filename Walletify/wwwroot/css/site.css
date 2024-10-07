@@ -28,6 +28,9 @@ nav {
     z-index: 10;
     padding: 2rem;
 }
+nav .container img{
+    cursor: pointer;
+}
 
 /* Footer*/
 footer {

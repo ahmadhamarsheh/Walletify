@@ -1,12 +1,11 @@
-﻿@model LoginViewModel
-
+﻿@model Walletify.ViewModel.Identity.LoginViewModel;
 @{
     ViewBag.Title = "Walletify-Login";
 }
 @section CustomCss {
     <link rel="stylesheet" href="~/css/StyleSignin.css" asp-append-version="true" />
 }
-    <section class="d-flex justify-content-center align-items-center pt-3">
+<section class="d-flex justify-content-center align-items-center pt-3">
     <div class="container  d-flex align-items-center">
         <div class="content w-50">
             <div class="title text-center text-capitalize fw-bolder">login form</div>
@@ -16,7 +15,7 @@
             </div>
 
 
-            <form asp-action="Signin" asp-controller="Accounts">
+            <form asp-action="Signin" asp-controller="Authentication">
                 <div class="field">
                     <input type="email" asp-for="Email" required />
                     <label>Email Address</label>
@@ -34,18 +33,15 @@
                         <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
                     </label>
                 </div>
-                <div class="pass-link"><a asp-action="ForgetPassword" asp-controller="Accounts">Forget Password?</a></div>
+                <div class="pass-link"><a asp-action="" asp-controller="Authentication">Forget Password?</a></div>
                 <div class="field">
-                    <button type="submit" asp-action="Signin" asp-controller="Accounts" class="text-center text-capitalize">login</button>
+                    <button type="submit" asp-action="Signin" asp-controller="Authentication" class="text-center text-capitalize">login</button>
                 </div>
-                <div class="signup-link">Don't have an account?<a asp-action="Register" asp-controller="Accounts">Signup</a></div>
+                <div class="signup-link">Don't have an account?<a asp-action="Register" asp-controller="Authentication">Signup</a></div>
             </form>
         </div>
-        <div class="img w-50" >
-             <img src="@Url.Content("~/Images/login.gif")" class="w-100 h-100" />
+        <div class="img w-50">
+            <img src="@Url.Content("~/Images/login.gif")" class="w-100 h-100" />
         </div>
     </div>
-    </section>
-
-
-
+</section>

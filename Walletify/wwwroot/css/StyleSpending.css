@@ -12,13 +12,13 @@ section{
 }
 .header {
     position: relative;
-    width: 20%;
+    width: 30%;
     border-radius: 4px;
     cursor: pointer;
     overflow: hidden;
 }
 .header::before{
-    content: 'DEPOSIT';
+    content: 'Spending';
     position: absolute;
     border-radius: 4px;
     top:0;
@@ -26,7 +26,7 @@ section{
     width: 100%;
     height: 100%;
     background: #fff;
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 700;
     color: rgb(25, 135, 84);
     display:flex;
@@ -70,7 +70,18 @@ form .row-field {
     height: 50px;
     margin: 16px 0;
 }
-
+/* mknhvgv*/
+form .field input,
+form button {
+    height: 100%;
+    width: 100%;
+    border-radius: 25px;
+    border: solid 1px lightgray;
+    font-size: 17px;
+    padding-left: 20px;
+    outline: none;
+    transition: all 0.3s ease;
+}
 .input-box input {
     width: 100%;
     height: 100%;
@@ -165,58 +176,67 @@ form .row-field {
 }
 @media(max-width: 1024px) {
     .header {
-        width: 15%;
+        width: 25%;
     }
-
-        .header::before {
-            font-size: 20px;
-        }
-
-    .button button {
+    .header::before {
+        font-size: 20px;
+     }
+    .button button{
         height: 2.5rem;
         margin-bottom: 20px;
     }
 }
-@media(max-width: 770px){
-    section{
-        margin: 5rem 0;
-    }
-    .container{
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-    }
-    .header{
-        width: 38%;
+    @media(max-width: 770px) {
+        section {
+            margin: 5rem 0;
+        }
 
-    }
-    .header::before{
-        font-size: 25px;
-    }
-}
-@media (max-width: 500px){
-    .header{
-        width: 70px;
-        height: 70px
+        .container {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
 
-    }
-    .row-field .input-box {
-        margin: 10px 0;
-    }
-        .header::before{
-        font-size: 15px;
-    }
-    row-field textarea {
-        min-height: 60px;
-    }
-    .button button{
-        height: 2rem;
-    }
-}
+        .header {
+            width: 45%;
+        }
 
-/* Footer*/
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+            .header::before {
+                font-size: 20px;
+            }
+    }
+
+    @media (max-width: 350px) {
+        .header {
+            width: 30%;
+        }
+
+            .header::before {
+                font-size: 15px;
+            }
+
+        .row-field .input-box {
+            margin: 10px 0;
+            height: 2.5rem;
+        }
+
+        .header::before {
+            font-size: 15px;
+        }
+
+        .row-field textarea {
+            min-height: 2rem;
+            height: 100%;
+        }
+
+        .button button {
+            height: 1.9rem;
+        }
+    }
+
+    /* Footer*/
+    footer {
+        position: absolute;
+        bottom: 0;
+    }
 }

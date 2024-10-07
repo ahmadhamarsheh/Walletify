@@ -1,4 +1,5 @@
 ﻿using Walletify.ApplicationDbContext;
+using Walletify.Models.Entities;
 using Walletify.Repositories.Interfaces;
 
 namespace Walletify.Repositories.Implementation
@@ -12,6 +13,7 @@ namespace Walletify.Repositories.Implementation
         private IUserRepository _user;
         private ICategoryRepository _category;
         private IAccountRepositry _account;
+        private ISavingRepositry _saving;
         public IUserRepository User
         {
             get
@@ -55,6 +57,17 @@ namespace Walletify.Repositories.Implementation
                     _account = new AccountRepositry(_appDBContext);
                 }
                 return _account;
+            }
+        }
+        public ISavingRepositry Saving
+        {
+            get
+            {
+                if (_saving == null)
+                {
+                    _saving = new SavingRepositry(_appDBContext);
+                }
+                return _saving;
             }
         }
 
