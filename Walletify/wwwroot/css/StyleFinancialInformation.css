@@ -8,6 +8,9 @@
 .content {
     margin-right: 5.5rem;
 }
+section{
+    margin-top: 8rem;
+}
 
 .content .title {
     line-height: 80px;
@@ -29,12 +32,12 @@
 form .field {
     width: 100%;
     position: relative;
-    margin-top: 1.4rem;
+    margin-top: 0.8rem;
 }
 
 form .field input,
 form button {
-    height: 3rem;
+    height: 2.8rem;
     width: 100%;
     border-radius: 25px;
     border: solid 1px lightgray;
@@ -48,10 +51,10 @@ form .field input:focus {
     border-color: rgb(25, 135, 84);
 }
 
-    form .field label {
-        color: rgb(25, 135, 84);
-        font-size: 17px;
-    }
+form .field label {
+    color: rgb(25, 135, 84);
+    font-size: 17px;
+}
 
 form .field button {
     background: linear-gradient(135deg, #50c878 10%, #3d9970 100%);
