@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Walletify.ViewModel.Identity;
 using Walletify.ViewModel.Accounts;
 using Walletify.Repositories.Interfaces;
-
 namespace Walletify.Controllers
 {
     public class AuthenticationController : Controller

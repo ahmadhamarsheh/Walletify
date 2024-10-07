@@ -39,7 +39,6 @@ namespace Walletify
 
             // Map routes for Hangfire Dashboard (optional: secured access can be configured here)
             app.MapHangfireDashboard();
-
             // Example of a recurring job
             RecurringJob.AddOrUpdate<SavingController>(
                 "UpdateSavingTargetAmount",

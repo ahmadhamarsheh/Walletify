@@ -35,7 +35,7 @@ namespace Walletify.Controllers
                 var account = _repository.Account.FindByCondition(a => a.UserId == userId).FirstOrDefault();
                 if (account == null )
                 {
-                    ModelState.AddModelError("", "User not found.");
+                    ModelState.AddModelError("", "Please Fill your Financial Information.");
                     return View(model); // Return the view with the current ViewModel to show error
                 }
 
@@ -44,7 +44,7 @@ namespace Walletify.Controllers
                 if (notAllowSpending)
                 {
                     //ALERT
-                    return NotFound();
+                    ModelState.AddModelError("", "Balance Not Enough.");
                 }
 
                 if (ModelState.IsValid)
@@ -86,7 +86,7 @@ namespace Walletify.Controllers
             else
             {
                 ModelState.AddModelError("", "Invalid user ID.");
-                return Content("OK");
+                return RedirectToAction("Index", "Authentication");
             }
             
         }
@@ -158,7 +158,7 @@ namespace Walletify.Controllers
             else
             {
                 ModelState.AddModelError("", "Invalid user ID.");
-                return Content("Ok");
+                return RedirectToAction("Index", "Authentication");
             }
             
         }

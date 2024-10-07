@@ -34,7 +34,7 @@ namespace Walletify.Controllers
                 };
                 return View(accountViewModel);
             }
-                return NotFound();
+                return RedirectToAction("NotFound","Home");
         }
         [HttpPost]
         public IActionResult UpdateAccount(UpdateAccountViewModel model)
@@ -55,7 +55,7 @@ namespace Walletify.Controllers
             }
             else
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
             }
         }
     }
