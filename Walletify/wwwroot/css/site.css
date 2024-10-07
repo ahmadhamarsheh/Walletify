@@ -12,9 +12,6 @@ body{
     justify-content: center;
     flex-direction: column;
 }
-p {
-    color: rgb(2, 48, 32);
-}
 
 nav, footer {
     height: 3rem;

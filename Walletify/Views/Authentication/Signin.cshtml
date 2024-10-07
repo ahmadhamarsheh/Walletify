@@ -17,23 +17,21 @@
 
             <form asp-action="Signin" asp-controller="Authentication">
                 <div class="field">
-                    <input type="email" asp-for="Email" required />
                     <label>Email Address</label>
+                    <input type="email" asp-for="Email" required />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="field">
-                    <input type="password" asp-for="Password" required />
                     <label>Password</label>
+                    <input type="password" asp-for="Password" required />
                     <span asp-validation-for="Password" class="text-danger"></span>
-
                 </div>
-                <br />
-                <div class="form-group form-check">
+                <div class="pass-link"><a asp-action="ForgetPassword" asp-controller="Authentication">Forget Password?</a></div>
+                <div class="form-group form-check mt-2">
                     <label class="form-check-label">
                         <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
                     </label>
                 </div>
-                <div class="pass-link"><a asp-action="" asp-controller="Authentication">Forget Password?</a></div>
                 <div class="field">
                     <button type="submit" asp-action="Signin" asp-controller="Authentication" class="text-center text-capitalize">login</button>
                 </div>

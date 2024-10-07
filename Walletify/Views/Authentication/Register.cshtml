@@ -1,6 +1,4 @@
-﻿@model Walletify.ViewModel.Identity.RegisterViewModel
-
-
+﻿@model Walletify.ViewModel.Identity.RegisterViewModel;
 @{
     ViewBag.Title = "Walletify-Register";
 }
@@ -14,23 +12,23 @@
             <form asp-action="Register" asp-controller="Authentication" class="d-flex align-items-center justify-content-between flex-wrap">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="field">
-                    <input asp-for="Email" type="email" required />
                     <label>Email Address</label>
+                    <input asp-for="Email" type="email" required />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="field">
-                    <input asp-for="UserName" type="text" required />
                     <label>Username</label>
+                    <input asp-for="UserName" type="text" required />
                     <span asp-validation-for="UserName" class="text-danger"></span>
                 </div>
                 <div class="field">
-                    <input asp-for="Password" type="password" required />
                     <label>Password</label>
+                    <input asp-for="Password" type="password" required />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="field">
-                    <input asp-for="ConfirmPassword" type="password" required />
                     <label>Confirm Password</label>
+                    <input asp-for="ConfirmPassword" type="password" required />
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
                 <div class="column d-flex justify-content-center align-items-center flex-column">
@@ -52,5 +50,3 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
-
-
