@@ -5,6 +5,7 @@ using System;
 using Walletify.ApplicationDbContext;
 using Walletify.Controllers;
 using Walletify.DependencyInjection;
+using Walletify.Models.Entities;
 using Walletify.Repositories.Implementation;
 using Walletify.Repositories.Interfaces;
 using Walletify.ViewModel;
@@ -23,12 +24,22 @@ namespace Walletify
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
             );
             // Configure Factory
+            builder.Services.AddScoped<IEmailSenderService,EmailSender>();
+
+            builder.Services.Configure<SmtpSettings>(options =>
+            {
+                options.Host = "live.smtp.mailtrap.io";
+                options.Port = 587;
+                options.UserName = "api"; 
+                options.Password = "07213ee07d247785f358e21c6721b03d"; 
+                options.EnableSsl = true;
+            });
+
             builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>()
-                .AddIdentityDependencyInjection()
-                .AddEmailSenderDependencyInjection();
+                .AddIdentityDependencyInjection();
+                //.AddEmailSenderDependencyInjection();
 
-            //builder.Services.AddScoped<IEmailSender, EmailSender>();
-
+          
 
             // Add auto mapper
             builder.Services.AddAutoMapper(typeof(Program), typeof(MappingProfile));

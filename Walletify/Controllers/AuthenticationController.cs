@@ -13,11 +13,11 @@ namespace Walletify.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        private readonly IEmailSender _emailSender;
+        private readonly IEmailSenderService _emailSender;
 
         private readonly IRepositoryFactory _repository;
 
-        public AuthenticationController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IRepositoryFactory repository, IEmailSender emailSender)
+        public AuthenticationController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IRepositoryFactory repository, IEmailSenderService emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -112,7 +112,7 @@ namespace Walletify.Controllers
 
                     await _emailSender.SendEmailAsync(newUser.Email, "Confirm your email", confirmationLink);
 
-                    return RedirectToAction("ConfirmEmailNotification");
+                    return RedirectToAction("Index");
                 }
                 foreach (var error in result.Errors)
                 {
@@ -151,20 +151,20 @@ namespace Walletify.Controllers
             return View("Index");
         }
         [HttpGet]
-        public IActionResult ForgotPassword()
+        public IActionResult ForgetPassword()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        public async Task<IActionResult> ForgetPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
-                    return RedirectToAction("ForgotPasswordConfirmation");
+                    return RedirectToAction("ForgetPassword");
                 }
 
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
@@ -173,7 +173,7 @@ namespace Walletify.Controllers
 
                 await _emailSender.SendEmailAsync(model.Email, "Reset Password", resetLink);
 
-                return RedirectToAction("ForgotPasswordConfirmation");
+                return RedirectToAction("Index","Dashboard");
             }
 
             return View(model);
@@ -198,13 +198,13 @@ namespace Walletify.Controllers
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user == null)
                 {
-                    return RedirectToAction("ResetPasswordConfirmation");
+                    return RedirectToAction("ForgetPassword");
                 }
 
                 var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("ResetPasswordConfirmation");
+                    return RedirectToAction("ForgetPassword");
                 }
 
                 foreach (var error in result.Errors)
@@ -242,11 +242,5 @@ namespace Walletify.Controllers
             ViewBag.id = model.UserId;
             return View(model);
         }
-        [HttpGet]
-        public IActionResult ForgetPassword()
-        {
-            return View();
-        }
-
     }
 }

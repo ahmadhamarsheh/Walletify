@@ -23,7 +23,8 @@ namespace Walletify.DependencyInjection
                 opt.User.RequireUniqueEmail = true;
                 //signin settings
                 opt.SignIn.RequireConfirmedEmail = true;
-            }).AddEntityFrameworkStores<AppDbContext>();
+            }).AddEntityFrameworkStores<AppDbContext>()
+            .AddDefaultTokenProviders();
             return services;
         }
     }
