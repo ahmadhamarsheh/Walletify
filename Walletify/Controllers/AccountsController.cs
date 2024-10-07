@@ -125,6 +125,5 @@ namespace Walletify.Controllers
 
             return View();
         }
-        
     }
 }

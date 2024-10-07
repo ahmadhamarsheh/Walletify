@@ -34,7 +34,7 @@
                         <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
                     </label>
                 </div>
-                <div class="pass-link"><a asp-action="" asp-controller="Accounts">Forget Password?</a></div>
+                <div class="pass-link"><a asp-action="ForgetPassword" asp-controller="Accounts">Forget Password?</a></div>
                 <div class="field">
                     <button type="submit" asp-action="Signin" asp-controller="Accounts" class="text-center text-capitalize">login</button>
                 </div>
@@ -42,7 +42,7 @@
             </form>
         </div>
         <div class="img w-50" >
-             <img src="@Url.Content("~/Images/signin.png")" class="w-100 h-100" />
+             <img src="@Url.Content("~/Images/login.gif")" class="w-100 h-100" />
         </div>
     </div>
     </section>

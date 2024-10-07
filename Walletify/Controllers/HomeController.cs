@@ -15,6 +15,7 @@ namespace Walletify.Controllers
 
         public IActionResult Index()
         {
+            return Content("Ok");
             return View();
         }
 
