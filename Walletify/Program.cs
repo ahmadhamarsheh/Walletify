@@ -8,6 +8,7 @@ using Walletify.DependencyInjection;
 using Walletify.Repositories.Implementation;
 using Walletify.Repositories.Interfaces;
 using Walletify.ViewModel;
+
 namespace Walletify
 {
     public class Program
@@ -23,7 +24,12 @@ namespace Walletify
             );
             // Configure Factory
             builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>()
-                .AddIdentityDependencyInjection();
+                .AddIdentityDependencyInjection()
+                .AddEmailSenderDependencyInjection();
+
+            //builder.Services.AddScoped<IEmailSender, EmailSender>();
+
+
             // Add auto mapper
             builder.Services.AddAutoMapper(typeof(Program), typeof(MappingProfile));
             // Add Hangfire services

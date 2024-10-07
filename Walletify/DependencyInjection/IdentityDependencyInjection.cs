@@ -17,7 +17,6 @@ namespace Walletify.DependencyInjection
                 opt.Password.RequireNonAlphanumeric = true;
                 //lockout settings
                 opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
-                opt.Lockout.AllowedForNewUsers = false;
                 opt.Lockout.MaxFailedAccessAttempts = 5;
 
                 //user setting
