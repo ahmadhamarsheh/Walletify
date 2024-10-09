@@ -3,40 +3,33 @@
 @{
     ViewData["Title"] = "Enter Confirmation Code";
 }
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-
-<h1>@ViewData["Title"]</h1>
-
-@if (TempData["ConfirmationCode"] != null)
-{
-    <p style="color: #50c878; font-weight: bold;">
-        Please enter the following confirmation code to verify your account:
-        <strong>@TempData["ConfirmationCode"]</strong>
-    </p>
+@section CustomCss {
+    <link rel="stylesheet" href="~/css/StyleConfirmEmail.css" asp-append-version="true" />
 }
 
-<form asp-action="ConfirmEmail" method="post">
-    <div class="form-group">
-        <label asp-for="ConfirmationCode" class="control-label"></label>
-        <input asp-for="ConfirmationCode" class="form-control" required />
-        <span asp-validation-for="ConfirmationCode" class="text-danger"></span>
+<section class="d-flex justify-content-center align-items-center pt-3">
+    <div class="container  d-flex align-items-center">
+        <div class="content w-50">
+            <div class="title text-center text-capitalize fw-bolder">Confirm Email</div>
+            <form asp-action="FinancialInformation" asp-controller="Authentication">
+                @if (TempData["ConfirmationCode"] != null)
+                {
+                    <div class="d-flex flex-column justify-content-center align-items-start fw-bold">
+                        <span class="text-success">Please enter the following confirmation code to verify your account:</span>
+                        <span class="fw-bolder text-danger mt-2">@TempData["ConfirmationCode"]</span>
+                    </div>
+                }
+                <div class="field">
+                    <label asp-for="ConfirmationCode">Code</label>
+                    <input asp-for="ConfirmationCode" required />
+                </div>
+                <div class="feild button w-100">
+                    <button asp-action="ConfirmEmail" asp-controller="Authentication" class="text-center text-capitalize">Confirm Email</button>
+                </div>
+            </form>
+        </div>
+        <div class="img w-50">
+            <img src="@Url.Content("~/Images/Confirmed.gif")" class="w-100 h-100" />
+        </div>
     </div>
-
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Confirm Email</button>
-    </div>
-
-    <div class="form-group">
-        <p>
-            <a asp-action="Register">Register a new account</a> |
-            <a asp-action="Signin">Already have an account? Sign in</a>
-        </p>
-    </div>
-</form>
+</section>

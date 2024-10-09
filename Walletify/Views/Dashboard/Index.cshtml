@@ -35,9 +35,9 @@
         transition: all 0.3s ease-in-out;
     }
 
-        .card .card-block {
-            padding: 25px;
-        }
+    .card .card-block {
+        padding: 25px;
+    }
 
     .order-card i {
         font-size: 26px;
@@ -66,6 +66,11 @@
 
     .progress-bar {
         background: linear-gradient(135deg, #50c878 10%, #3d9970 100%);
+    }
+
+    .TransactionId{
+        font-size: 12px;
+        font-weight: bold;
     }
 
 </style>
@@ -100,18 +105,16 @@
             </div>
         </div>
     </div>
-
-
     <div class="row mt-5">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Transaction table</h3>
+                    <h3 class="card-title fw-bolder">Transaction table</h3>
                 </div>
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
-                            <tr class= "text-center">
+                            <tr class="text-center">
                                 <th class="text-center">Transaction Id</th>
                                 <th class="text-center">Transaction Type</th>
                                 <th class="text-center">Category Name</th>
@@ -124,7 +127,7 @@
                             @foreach (var transaction in Model.TopTransactions)
                             {
                                 <tr>
-                                    <td class="text-center">@transaction.TransactionId</td>
+                                    <td class="text-center TransactionId">@transaction.TransactionId</td>
                                     <td class="text-center">@transaction.TransationType</td>
                                     <td class="text-center">@transaction.CategoryName</td>
                                     <td class="text-center">@transaction.Amount</td>
@@ -139,8 +142,6 @@
             </div>
         </div>
     </div>
-
-
     <div class="mt-4">
         <div class="progress" style="height: 25px;">
             <div id="progressBar" class="progress-bar progress-bar-striped"
