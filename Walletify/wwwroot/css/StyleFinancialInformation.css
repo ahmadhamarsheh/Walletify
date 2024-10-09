@@ -36,20 +36,21 @@ form .field {
 }
 
 form .field input,
-form button {
+form .button {
     height: 2.8rem;
     width: 100%;
     border-radius: 25px;
     border: solid 1px lightgray;
     font-size: 17px;
-    padding-left: 20px;
     outline: none;
     transition: all 0.3s ease;
 }
-
-form .field input:focus {
-    border-color: rgb(25, 135, 84);
-}
+    form .field input{
+        padding-left: 20px;
+    }
+    form .field input:focus {
+        border-color: rgb(25, 135, 84);
+    }
 
 form .field label {
     color: rgb(25, 135, 84);
@@ -88,10 +89,10 @@ form .signup-link {
     margin-top: 20px;
 }
 
-    form .pass-link a:hover,
-    form .signup-link a:hover {
-        text-decoration: underline;
-    }
+form .pass-link a:hover,
+form .signup-link a:hover {
+    text-decoration: underline;
+}
 
 .container .img {
     width: 40rem;

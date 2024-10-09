@@ -72,15 +72,17 @@ form .row-field {
 }
 
 form input,
-form button {
+form .button {
     height: 100%;
     width: 100%;
     border-radius: 25px;
-    border: solid 1px lightgray;
     font-size: 17px;
-    padding-left: 20px;
     outline: none;
     transition: all 0.3s ease;
+}
+form input {
+    border: solid 1px lightgray;
+    padding-left: 20px;
 }
 .input-box input,
 .input-box select {
