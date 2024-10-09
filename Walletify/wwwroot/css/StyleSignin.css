@@ -52,6 +52,7 @@ form .field input:focus{
 form .field label {
     color: rgb(25, 135, 84);
     font-size: 17px;
+    padding-left: 0.5rem;
 }
 
 form .field button {

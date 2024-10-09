@@ -63,6 +63,7 @@ form .button button {
 form .field label {
     color: rgb(25, 135, 84);
     font-size: 1rem;
+    padding-left: 0.5rem;
 }
 
 form .field input:focus {
