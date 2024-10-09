@@ -9,6 +9,8 @@ namespace Walletify.Models.Entities
     public class Transaction
     {
         public int Id { get; set; }
+
+        public string TransationId = Guid.NewGuid().ToString();
         [Required]
         public string UserId { get; set; }
         [Required]

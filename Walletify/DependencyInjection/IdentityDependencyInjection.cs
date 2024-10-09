@@ -13,7 +13,7 @@ namespace Walletify.DependencyInjection
                 //password settings
                 opt.Password.RequireLowercase = true;
                 opt.Password.RequireUppercase = true;
-                opt.Password.RequiredLength = 10;
+                opt.Password.RequiredLength = 8;
                 opt.Password.RequireNonAlphanumeric = true;
                 //lockout settings
                 opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);

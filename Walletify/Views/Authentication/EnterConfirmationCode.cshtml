@@ -1,0 +1,42 @@
+﻿@model Walletify.ViewModel.Identity.EnterConfirmationCodeViewModel
+
+@{
+    ViewData["Title"] = "Enter Confirmation Code";
+}
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<h1>@ViewData["Title"]</h1>
+
+@if (TempData["ConfirmationCode"] != null)
+{
+    <p style="color: #50c878; font-weight: bold;">
+        Please enter the following confirmation code to verify your account:
+        <strong>@TempData["ConfirmationCode"]</strong>
+    </p>
+}
+
+<form asp-action="ConfirmEmail" method="post">
+    <div class="form-group">
+        <label asp-for="ConfirmationCode" class="control-label"></label>
+        <input asp-for="ConfirmationCode" class="form-control" required />
+        <span asp-validation-for="ConfirmationCode" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Confirm Email</button>
+    </div>
+
+    <div class="form-group">
+        <p>
+            <a asp-action="Register">Register a new account</a> |
+            <a asp-action="Signin">Already have an account? Sign in</a>
+        </p>
+    </div>
+</form>

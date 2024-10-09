@@ -1,5 +1,6 @@
 using Hangfire;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Walletify.ApplicationDbContext;
@@ -24,20 +25,11 @@ namespace Walletify
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
             );
             // Configure Factory
-            builder.Services.AddScoped<IEmailSenderService,EmailSender>();
+            builder.Services.AddTransient<IEmailSender,EmailSender>();
 
-            builder.Services.Configure<SmtpSettings>(options =>
-            {
-                options.Host = "live.smtp.mailtrap.io";
-                options.Port = 587;
-                options.UserName = "api"; 
-                options.Password = "07213ee07d247785f358e21c6721b03d"; 
-                options.EnableSsl = true;
-            });
 
             builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>()
                 .AddIdentityDependencyInjection();
-                //.AddEmailSenderDependencyInjection();
 
           
 

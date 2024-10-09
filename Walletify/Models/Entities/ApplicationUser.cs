@@ -7,5 +7,6 @@ public class ApplicationUser : IdentityUser
     public Account Account { get; set; }  // One-to-one relationship
     public Saving Saving { get; set; }    // One-to-one relationship
     public ICollection<Transaction> Transactions { get; set; } // Many-to-one relationship
+    public string ConfirmationCode { get; set; } = string.Empty;
 
 }

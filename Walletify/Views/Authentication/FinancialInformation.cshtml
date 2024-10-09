@@ -11,7 +11,8 @@
             <div class="title text-center text-capitalize fw-bolder">Financial</div>
             <form asp-action="FinancialInformation" asp-controller="Authentication">
                 <div class="field">
-                    <input asp-for="UserId" value= "@ViewBag.id"  type="hidden" />
+                    <input asp-for="UserId" value="@ViewBag.UserId" type="hidden" />
+                    @* value= "@ViewBag.id" *@
                 </div>
                 <div class="field">
                     <label asp-for="Balance">Balance</label>

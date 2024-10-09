@@ -106,12 +106,14 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a asp-action="Logout" asp-controller="Authentication" class="nav-link active">
-                    <p>
-                        <i class="bi bi-box-arrow-in-right"></i>&nbsp;&nbsp;
-                        Logout
-                    </p>
-                </a>
+                <form asp-action="Logout" asp-controller="Authentication" method="post" style="display:inline;">
+                    <button type="submit" class="nav-link active" style="background: none; border: none; color: white; font-size: 18px; padding: 8px 8px 8px 32px; transition: 0.3s;">
+                        <p>
+                            <i class="bi bi-box-arrow-in-right"></i>&nbsp;&nbsp;
+                            Logout
+                        </p>
+                    </button>
+                </form>
             </li>
         }
     </div>

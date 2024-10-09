@@ -1,44 +1,51 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol.Core.Types;
 using Walletify.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Walletify.ViewModel.Accounts;
 using Walletify.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Walletify.ViewModel.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Text;
+using System.Text.Encodings.Web;
+using Walletify.Repositories.Implementation;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using Microsoft.EntityFrameworkCore;
+
 namespace Walletify.Controllers
 {
     public class AuthenticationController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-
-        private readonly IEmailSenderService _emailSender;
-
         private readonly IRepositoryFactory _repository;
 
-        public AuthenticationController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IRepositoryFactory repository, IEmailSenderService emailSender)
+        public AuthenticationController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IRepositoryFactory repository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _repository = repository;
-            _emailSender = emailSender;
         }
+
         [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
+
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
+
         [HttpGet]
         public IActionResult Signin()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Signin(LoginViewModel model)
         {
@@ -50,7 +57,7 @@ namespace Walletify.Controllers
                     ModelState.AddModelError(string.Empty, "Username or Password is wrong");
                     return View(model);
                 }
-                if (!await _userManager.IsEmailConfirmedAsync(user))
+                if (!user.EmailConfirmed)
                 {
                     ModelState.AddModelError(string.Empty, "You need to confirm your email to log in.");
                     return View(model);
@@ -64,7 +71,7 @@ namespace Walletify.Controllers
                 var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Accounts");
+                    return RedirectToAction("Index", "Dashboard");
                 }
                 else if (result.IsNotAllowed)
                 {
@@ -81,75 +88,90 @@ namespace Walletify.Controllers
             }
             return View(model);
         }
+
+        private string GenerateConfirmationCode()
+        {
+            return Guid.NewGuid().ToString(); // أو أي طريقة أخرى لتوليد كود عشوائي
+        }
+
+        [HttpGet]
+        public IActionResult EnterConfirmationCode()
+        {
+            return View();
+        }
+
+        public IActionResult EmailConfirmed()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> ConfirmEmail(string confirmationCode)
+        {
+            // الحصول على المستخدم الذي له نفس رمز التأكيد
+            var user = await _userManager.Users
+                .FirstOrDefaultAsync(u => u.ConfirmationCode == confirmationCode);
+
+            if (user != null)
+            {
+                user.EmailConfirmed = true; // تأكيد البريد الإلكتروني
+                user.ConfirmationCode = string.Empty; // إلغاء الرمز بعد استخدامه
+                await _userManager.UpdateAsync(user);
+                return RedirectToAction("FinancialInformation", new { id = user.Id }); // إعادة توجيه إلى صفحة التأكيد
+
+            }
+
+            ModelState.AddModelError("", "Invalid confirmation code.");
+            return View("EnterConfirmationCode"); // عرض النموذج مرة أخرى مع رسالة خطأ
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             if (ModelState.IsValid)
             {
-                var existingEmailUser = await _userManager.FindByEmailAsync(model.Email);
-                if (existingEmailUser != null)
-                {
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                var result = await _userManager.CreateAsync(user, model.Password);
 
-                    ModelState.AddModelError("Email", "Email is already in use.");
-                    return View(model);
-                }
-                var existingUserNameUser = await _userManager.FindByNameAsync(model.UserName);
-                if (existingUserNameUser != null)
-                {
-                    ModelState.AddModelError("UserName", "Username is already taken.");
-                    return View(model);
-                }
-                var newUser = new ApplicationUser
-                {
-                    UserName = model.UserName,
-                    Email = model.Email
-                };
-                var result = await _userManager.CreateAsync(newUser, model.Password);
                 if (result.Succeeded)
                 {
-                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
-                    var confirmationLink = Url.Action("ConfirmEmail", "Accounts", new { token, email = newUser.Email }, Request.Scheme);
+                    // توليد رمز تأكيد بسيط
+                    user.ConfirmationCode = Guid.NewGuid().ToString();
 
-                    await _emailSender.SendEmailAsync(newUser.Email, "Confirm your email", confirmationLink);
+                    // تحديث المستخدم في قاعدة البيانات
+                    await _userManager.UpdateAsync(user);
 
-                    return RedirectToAction("Index");
+                    // تمرير الرمز إلى TempData
+                    TempData["ConfirmationCode"] = user.ConfirmationCode;
+
+                    // إعادة توجيه المستخدم إلى صفحة إدخال رمز التأكيد
+                    return RedirectToAction("EnterConfirmationCode", "Authentication");
                 }
+
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
+
             return View(model);
+        }
+
+
+        [HttpGet]
+        public IActionResult RegisterConfirmation()
+        {
+            return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Accounts");
+            return RedirectToAction("Index", "Authentication");
         }
-        [HttpGet]
-        public async Task<IActionResult> ConfirmEmail(string token, string email)
-        {
-            if (token == null || email == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
 
-            var user = await _userManager.FindByEmailAsync(email);
-            if (user == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            var result = await _userManager.ConfirmEmailAsync(user, token);
-            if (result.Succeeded)
-            {
-                return View("Index");
-            }
-
-            return View("Index");
-        }
         [HttpGet]
         public IActionResult ForgetPassword()
         {
@@ -170,14 +192,15 @@ namespace Walletify.Controllers
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var resetLink = Url.Action("ResetPassword", "Accounts", new { token, email = user.Email }, Request.Scheme);
 
+                // هنا يمكن إرسال البريد الإلكتروني إذا كنت بحاجة لذلك
+                // await _emailSender.SendEmailAsync(model.Email, "Reset Password", resetLink);
 
-                await _emailSender.SendEmailAsync(model.Email, "Reset Password", resetLink);
-
-                return RedirectToAction("Index","Dashboard");
+                return RedirectToAction("Index", "Dashboard");
             }
 
             return View(model);
         }
+
         [HttpGet]
         public IActionResult ResetPassword(string token, string email)
         {
@@ -216,16 +239,22 @@ namespace Walletify.Controllers
             return View(model);
         }
 
-
         [HttpGet]
         public IActionResult FinancialInformation(string id)
         {
-            ViewBag.id = id;
-            return View();
+            ViewBag.UserId = id; // تعيين UserId في ViewBag
+            return View(new AccountViewModel { UserId = id }); // إرسال UserId إلى الـ ViewModel
         }
+
         [HttpPost]
         public IActionResult FinancialInformation(AccountViewModel model)
         {
+            // تعيين UserId من ViewBag إذا كان null
+            if (string.IsNullOrEmpty(model.UserId))
+            {
+                model.UserId = ViewBag.UserId as string;
+            }
+
             if (ModelState.IsValid)
             {
                 var account = new Account()
@@ -235,11 +264,14 @@ namespace Walletify.Controllers
                     SavingTargetAmount = model.SavingTargetAmount,
                     SavedAmountPerMonth = model.SavedAmountPerMonth,
                 };
+
                 _repository.Account.Create(account);
                 _repository.Save();
                 return RedirectToAction(nameof(SignIn));
             }
-            ViewBag.id = model.UserId;
+
+            // إعادة تعيين UserId في ViewBag إذا كانت ModelState غير صحيحة
+            ViewBag.UserId = model.UserId;
             return View(model);
         }
     }
