@@ -26,9 +26,6 @@
 
 The project structure is organized as follows:
 
-
-bash```
-
 Walletify/
 ├── .vs/                  # Visual Studio configuration files
 ├── DB_Design/            # Database design documents
@@ -42,7 +39,6 @@ Walletify/
 │   ├── ViewModel/        # View models for data binding in views
 │   ├── Views/            # Razor views (UI)
 │   └── wwwroot/          # Static files (CSS, JavaScript, Images)
-```
 
 ## Technologies Used
 
