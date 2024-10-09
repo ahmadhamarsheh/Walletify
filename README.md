@@ -19,7 +19,6 @@
 - **User Authentication & Authorization**: Integrated with ASP.NET Identity for secure user authentication.
 - **Financial Management**: Users can update financial information, track their savings and set target goals.
 - **Transaction History**: Dashboard to view the most recent transactions and overall account status.
-- **Role-Based Access Control**: Separation of functionalities based on user roles.
 - **Responsive Design**: Optimized for both desktop and mobile users.
 
 ## Project Structure
