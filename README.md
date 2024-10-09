@@ -91,8 +91,8 @@ Open `appsettings.json` in the `Walletify` project and update the connection str
 Use the following command to apply the Entity Framework migrations and set up the database:
     
     ```jsx
-    dotnet ef database update
-    
+    add-migration nameOfMigrate
+    update-database
     ```
 
 ## Running the Application
