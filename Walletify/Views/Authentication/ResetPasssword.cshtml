@@ -5,7 +5,7 @@
 }
 
 @section CustomCss {
-    <link rel="stylesheet" href="~/css/StyleRegister.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/StyleSignin.css" asp-append-version="true" />
 }
 
 <section class="d-flex justify-content-center align-items-center pt-3">
@@ -20,11 +20,11 @@
                 </div>
                 <div class="field">
                     <label asp-for="NewPassword">New Password</label>
-                    <input asp-for="NewPassword" required  />
+                    <input type="password" asp-for="NewPassword" required />
                 </div>
                 <div class="field">
-                    <label asp-for="ConfirmNewPassword">Confirm Password</label>
-                    <input asp-for="ConfirmNewPassword" required  />
+                    <label  asp-for="ConfirmNewPassword">Confirm Password</label>
+                    <input type="password" asp-for="ConfirmNewPassword" required />
                 </div>
                 <div class="field button">
                     <button type="submit" class="text-center text-capitalize">Reset</button>
