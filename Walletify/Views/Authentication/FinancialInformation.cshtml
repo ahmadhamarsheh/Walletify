@@ -9,7 +9,7 @@
     <div class="container  d-flex align-items-center">
         <div class="content w-50">
             <div class="title text-center text-capitalize fw-bolder">Financial</div>
-            <form asp-action="FinancialInformation" asp-controller="Authentication">
+            <form asp-action="FinancialInformation" asp-controller="Authentication" method="post">
                 <div class="field">
                     <input asp-for="UserId" value="@ViewBag.UserId" type="hidden" />
                     @* value= "@ViewBag.id" *@
@@ -27,7 +27,7 @@
                     <input asp-for="SavedAmountPerMonth" required />
                 </div>
                 <div class="field">
-                    <button asp-action="FinancialInformation" asp-controller="Authentication" class="text-center text-capitalize button">Add</button>
+                    <button type="Submit" class="text-center text-capitalize button">Add</button>
                 </div>
             </form>
         </div>

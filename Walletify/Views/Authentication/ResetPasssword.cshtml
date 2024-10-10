@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Walletify.EmailService.EmailModel.ResetPasswordViewModel
+
+@{
     ViewBag.Title = "Walletify - Reset Password";
 }
 
@@ -10,16 +12,19 @@
     <div class="container d-flex align-items-center">
         <div class="content w-50">
             <div class="title text-center text-capitalize fw-bolder">Reset Password</div>
-            <form asp-action="ResetPassword" asp-controller="Authentication">
-                <input type="hidden" name="Token" value="@Model.Token" />
-                <input type="hidden" name="Email" value="@Model.Email" />
-                <div class="field">
-                    <label>New Password</label>
-                    <input type="password" name="Password" required placeholder="Enter your new password" />
+            <form asp-action="PerformResetPasssword" asp-controller="Authentication" method="post">
+                <input type="hidden" name="Email" value="@ViewBag.Email" />
+                      <div class="field">
+                    <label asp-for="Code">Code</label>
+                    <input asp-for="Code" required  />
                 </div>
                 <div class="field">
-                    <label>Confirm Password</label>
-                    <input type="password" name="ConfirmPassword" required placeholder="Re-enter your password" />
+                    <label asp-for="NewPassword">New Password</label>
+                    <input asp-for="NewPassword" required  />
+                </div>
+                <div class="field">
+                    <label asp-for="ConfirmNewPassword">Confirm Password</label>
+                    <input asp-for="ConfirmNewPassword" required  />
                 </div>
                 <div class="field button">
                     <button type="submit" class="text-center text-capitalize">Reset</button>

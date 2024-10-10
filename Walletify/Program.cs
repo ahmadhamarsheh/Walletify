@@ -1,15 +1,16 @@
 using Hangfire;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Walletify.ApplicationDbContext;
 using Walletify.Controllers;
 using Walletify.DependencyInjection;
+using Walletify.EmailService;
 using Walletify.Models.Entities;
 using Walletify.Repositories.Implementation;
 using Walletify.Repositories.Interfaces;
 using Walletify.ViewModel;
+using EmailSender = Walletify.EmailService.EmailSender;
 
 namespace Walletify
 {
@@ -24,9 +25,11 @@ namespace Walletify
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
             );
-            // Configure Factory
-            builder.Services.AddTransient<IEmailSender,EmailSender>();
+            //// Configure Factory
+            //builder.Services.AddTransient<IEmailSender,EmailSender>();
 
+            // Register your IEmailSender service here
+            builder.Services.AddScoped<IEmailSender, EmailSender>();
 
             builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>()
                 .AddIdentityDependencyInjection();
