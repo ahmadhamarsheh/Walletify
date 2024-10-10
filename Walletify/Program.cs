@@ -51,10 +51,12 @@ namespace Walletify
             // Example of a recurring job
             RecurringJob.AddOrUpdate<SavingController>(
                 "UpdateSavingTargetAmount",
-                   service => service.UpdateSavingTargetAmount(),
-                  "*/3 * * * *"
-            //Cron.Monthly // Run this on the 1st of every month
+                    service =>
+                            service.UpdateSavingTargetAmountForAllUsers(),// Reset the operation completed flag
+            Cron.Monthly // Run this on the 1st of every month
             );
+
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {

@@ -1,101 +1,101 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Walletify.Repositories.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration.UserSecrets;
-using Walletify.Models.Entities;
-using AutoMapper;
+﻿using Hangfire;
 using Microsoft.AspNetCore.Identity;
+using Walletify.Models.Entities;
+using Walletify.Repositories.Interfaces;
 
 namespace Walletify.Controllers
 {
 
-    public class SavingController : Controller
+    public class SavingController
     {
         private readonly IRepositoryFactory _repository;
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public SavingController(IRepositoryFactory repository, UserManager<ApplicationUser> userManager)
         {
             _repository = repository;
-            this.userManager = userManager;
+            _userManager = userManager;
         }
-        #region old
-        //public void ScheduleMonthlyJobsForAllUsers()
-        //{
-        //    // Retrieve all users from the repository
-        //    var users = _repository.User.FindAll().ToList();
 
-        //    // Iterate through each user and schedule their monthly job
-        //    foreach (var user in users)
-        //    {
-        //        ScheduleMonthlyJob(user);
-        //    }
-
-        //}
-
-        //// This method schedules the monthly job
-        //public void ScheduleMonthlyJob(User user)
-        //{
-        //    DateTime createdDate = user.CreationDate;
-
-        //    // Generate a cron expression for running the job on the same day of the month as the CreatedDate
-        //    string cronExpression = $"{createdDate.Minute} {createdDate.Hour} {createdDate.Day} * *"; // Runs on the same day each month
-
-        //    // Schedule the recurring job for the user
-        //    RecurringJob.AddOrUpdate<SavingController>(
-        //        $"UpdateSavingTargetAmount_{user.Id}",  // Unique job identifier per user
-        //        service => service.UpdateSavingTargetAmount(),
-        //        cronExpression
-        //    );
-
-        //}
-        #endregion
-
-        public void UpdateSavingTargetAmount()
+        // Update Saving Target Amount only for users with confirmed email
+        public void UpdateSavingTargetAmountForAllUsers()
         {
+            var users = _userManager.Users
+                .Where(u => u.EmailConfirmed) // Filter for users with confirmed email
+                .ToList();
 
-            var users = userManager.Users.ToList();
-
-                foreach (var user in users)
-                {
-
-                    var saving = _repository.Saving.FindByCondition(s => s.UserId == user.Id).FirstOrDefault();
-                    if(saving == null)
-                    {
-                        var save = new Saving { 
-                            UserId = user.Id,
-                            TotalSavedAmount = 0,
-                        };
-                        _repository.Saving.Create(save);
-                        _repository.Save();
-                    }
-
-                    var account = _repository.Account.FindByCondition(s => s.UserId == user.Id).FirstOrDefault();
-                    if ( account == null)
-                    {
-                        continue; // Skip if no saving record is found
-                    }
-
-                    var savedAmountPerMonth = account.SavedAmountPerMonth;
-                    var targetAmount = account.SavingTargetAmount;
-                    // Deduct the available balance and update the saved amount
-                    if (account.Balance >= savedAmountPerMonth)
-                    {
-                        account.Balance -= savedAmountPerMonth;
-                        saving.TotalSavedAmount += savedAmountPerMonth;
-
-                    }
-                    else
-                    {
-                    saving.TotalSavedAmount += account.Balance;
-                    account.Balance = 0;
-                    }
-                    _repository.Account.Update(account);
-                    _repository.Saving.Update(saving);
-                    // Commit all changes to the database
-                    _repository.Save();
-                }
+            foreach (var user in users)
+            {
+                UpdateSavingTargetAmount(user.Id);
             }
+        }
+
+
+        public void UpdateSavingTargetAmount(string userId)
+        {
+            var account = _repository.Account.FindByCondition(a => a.UserId == userId).FirstOrDefault();
+            var saving = _repository.Saving.FindByCondition(s => s.UserId == userId).FirstOrDefault();
+
+            if (account == null )
+            {
+                return; // Skip if the job has already run this month or account doesn't exist
+            }
+
+            RecurringJob.RemoveIfExists($"CheckBalance-{userId}");
+
+            if (account.Balance >= account.SavedAmountPerMonth)
+            {
+                DeductAndSave(userId, account, saving);
+
+            }
+            else
+            {
+                ScheduleDailyBalanceCheck(userId, account.SavedAmountPerMonth);
+            }
+
+        }
+
+        private void DeductAndSave(string userId, Account account, Saving saving)
+        {
+            if (saving == null)
+            {
+                saving = new Saving { UserId = userId, TotalSavedAmount = 0 };
+                _repository.Saving.Create(saving);
+                _repository.Save();
+
+            }
+
+            account.Balance -= account.SavedAmountPerMonth;
+            saving.TotalSavedAmount += account.SavedAmountPerMonth;
+
+            _repository.Account.Update(account);
+            _repository.Saving.Update(saving);
+            _repository.Save();
+        }
+
+        public void ScheduleDailyBalanceCheck(string userId, decimal savedAmountPerMonth)
+        {
+            RecurringJob.AddOrUpdate($"CheckBalance-{userId}", () => CheckBalance(userId, savedAmountPerMonth),
+                Cron.Daily
+                );
+        }
+
+        public void CheckBalance(string userId, decimal savedAmountPerMonth)
+        {
+            var account = _repository.Account.FindByCondition(a => a.UserId == userId).FirstOrDefault();
+            var saving = _repository.Saving.FindByCondition(s => s.UserId == userId).FirstOrDefault();
+
+
+
+            if (account.Balance >= savedAmountPerMonth)
+            {
+                DeductAndSave(userId, account, saving);
+                RecurringJob.RemoveIfExists($"CheckBalance-{userId}");
+            }
+
+        }
+
+      
+
     }
 }
