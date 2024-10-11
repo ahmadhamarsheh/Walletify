@@ -1,0 +1,51 @@
+﻿@model Walletify.ViewModel.Transactions.TransactionViewModel;
+@{
+    ViewBag.Title = "Walletify-Income";
+}
+@section CustomCss {
+    <link rel="stylesheet" href="~/css/StyleIncome.css" asp-append-version="true" />
+}
+<section>
+    <div class="container">
+        <div class="header">
+            <div class="image">
+                <img src="@Url.Content("~/Images/Income.jpg")" class="w-100 h-100" />
+            </div>
+        </div>
+        <form asp-action="Income" asp-controller="Transaction" method="post">
+            <div class="text-danger">
+                <div asp-validation-summary="ModelOnly"></div>
+            </div>
+            <div class="row-field">
+                <div class="input-box">
+                    <label for="">Amount</label>
+                    <input asp-for="Amount" />
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+                <div class="input-box">
+                    <label>Select Category</label>
+                    <select asp-for="CategoryId" class="form-control">
+                        <option value="">Select Category</option>
+                        @foreach (var category in ViewBag.incomeCategories)
+                        {
+                            <option value="@category.Id" class="text-success">@category.Name</option>
+                        }
+                    </select>
+
+                </div>
+            </div>
+            <div class="row-field message-box d-flex justify-content-end align-items-start flex-column">
+                <label asp-for="Note">Note</label>
+                <textarea asp-for="Note"></textarea>
+            </div>
+            <div class="button">
+                <button asp-action="Income" asp-controller="Transaction" class="text-center text-capitalize button">Add</button>
+            </div>
+        </form>
+    </div>
+    </section>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

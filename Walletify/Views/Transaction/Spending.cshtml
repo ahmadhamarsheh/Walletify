@@ -1,0 +1,53 @@
+﻿@model Walletify.ViewModel.Transactions.TransactionViewModel;
+ @{
+     ViewBag.Title = "Walletify-Spending";
+
+ } 
+@section CustomCss {
+    <link rel="stylesheet" href="~/css/StyleSpending.css" asp-append-version="true" />
+}
+<section>
+    <div class="container">
+        <div class="header">
+            <div class="image ">
+                <img src="@Url.Content("~/Images/spending.jpg")" class="w-100 h-100" />
+            </div>
+        </div>
+        <form asp-action="Spending" asp-controller="Transaction">
+            <div class="text-danger">
+                <div asp-validation-summary="ModelOnly"></div>
+            </div>
+               
+
+            <div class="row-field">
+                    <div class="input-box">
+                    <label asp-for="Amount">Amount</label>
+                    <input asp-for="Amount" />
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                    </div>
+                <div class="input-box">
+                    <label>Select Category</label>
+                    <select asp-for="CategoryId" class="form-control">
+                        <option>Select Category</option>
+                        @foreach (var category in ViewBag.outcomeCategories)
+                        {
+                            <option value="@category.Id" class="text-success">@category.Name</option>
+                        }
+                    </select>
+               </div>
+            </div>
+            <div class="row-field message-box d-flex align-items-start justify-content-end flex-column">
+                <label asp-for="Note" >Note</label>
+                <textarea asp-for="Note"></textarea>
+            </div>
+            <div class="button">
+                <button asp-action="Spending" asp-controller="Transaction" class="text-center text-capitalize button">Add</button>
+            </div>
+        </form>
+    </div>
+</section>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

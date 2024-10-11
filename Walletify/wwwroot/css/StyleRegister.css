@@ -5,22 +5,31 @@
     display: flex;
     flex-direction: column;
 }
+section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: calc(100vh - 6rem);
+    margin-top: 3rem;
+}
+
 .content {
     margin-right: 5.5rem;
-    width:65%;
+    width: 65%;
 }
 
 .content .title {
-     line-height: 100px;
-     width: 100%;
-     text-align: center;
-     font-size: 3rem;
-     font-weight: 600;
-     pointer-events: none;
-     background: linear-gradient(135deg, #50c878 10%, #3d9970 100%);
-     background-clip: text;
-     -webkit-background-clip: text;
-     -webkit-text-fill-color: transparent;
+    line-height: 100px;
+    width: 100%;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 600;
+    pointer-events: none;
+    background: linear-gradient(135deg, #50c878 10%, #3d9970 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .content form {
@@ -28,52 +37,38 @@
 }
 
 form .field {
-    height: 3rem;
     max-width: calc(50% - 20px);
     width: 100%;
+    height: fit-content;
     position: relative;
     margin-top: 1rem;
 }
-form .column{
+
+form .column {
     max-width: 100%;
-    width:100%;
+    width: 100%;
 }
-    form .field input,
-    form .button button {
-        height: 100%;
-        width: 100%;
-        border-radius: 1.5rem;
-        border: solid 1px lightgray;
-        font-size: 1rem;
-        padding-left: 1rem;
-        outline: none;
-        transition: all 0.3s ease;
-    }
+
+form .field input,
+form .button button {
+    width: 100%;
+    height: 3rem;
+    padding-left: 1rem;
+    border-radius: 1.5rem;
+    border: solid 1px lightgray;
+    font-size: 1rem;
+    outline: none;
+}
+
+form .field label {
+    color: rgb(25, 135, 84);
+    font-size: 1rem;
+    padding-left: 0.5rem;
+}
 
 form .field input:focus {
     border-color: rgb(25, 135, 84);
 }
-
-form .field label {
-    position: absolute;
-    top: 50%;
-    left: 10px;
-    transform: translateY(-50%);
-    pointer-events: none;
-    color: #999;
-    transition: all 0.3s ease;
-    font-size: 1rem;
-}
-
-form .field input:focus ~ label,
-form .field input:valid ~ label {
-    top: 0%;
-    transform: translateY(-50%);
-    background-color: #fff;
-    font-size: 16px;
-    color: rgb(25, 135, 84);
-}
-
 form .button button {
     margin-top: 1rem;
     height: 50px;
@@ -101,6 +96,7 @@ form .signin-link {
     color: #262622;
     margin-top: 20px;
 }
+
 form .signin-link a {
     text-decoration: none;
     color: rgb(25, 135, 84);
@@ -115,73 +111,45 @@ form .signin-link a:hover {
     width: 35%;
 }
 
-@media(max-width: 1230px) {
+@media(max-width: 1000px) {
     .container .img {
         display: none;
     }
 
-    .content {
-        max-width: 80rem;
-        min-width: 40rem;
-        width: 100%;
-        margin: 0;
-    }
-    form .column {
-       justify-content: space-between !important;
-    }
-}
-
-@media(max-width: 800px) {
     .container .content {
         width: 100% !important;
-        margin: 0;
+        margin: 0 !important;
     }
+}
+
+@media(max-width: 350px) {
+    .content .title {
+        margin-top: 1rem;
+        font-size: 2rem;
+        line-height: 40px;
+    }
+
     .content form {
         padding: 10px;
-        margin: 0;
     }
 
-    form .column .field input:focus ~ label,
-    form .column .field input:valid ~ label {
-        font-size: 0.6rem;
-    }
-}
-
-@media(max-width: 770px) {
-    .container {
-        flex-direction: column !important;
-        justify-content: center !important;
-        padding: 20px;
-    }
-    form .column .field{
-        height: 2.5rem;
-        width: 80%!important;
-    }
-}
-@media (max-width: 680px) {
-    section{
-        margin: 1rem 0;
-    }
-    .content .title{
-        line-height: 50px;
-        font-size: 2rem;
-    }
-    .content form {
-        flex-direction: column !important;
-        padding: 2rem;
-        padding: 15px;
-    }
     form .field {
-        max-width: calc(50%-20px);
-        width: 100%;
-        height: 2rem;
-        margin-top: 0.8rem;
+        margin-top: 2rem;
+        height: 2.4rem;
+        min-width: calc(50%-5px);
+        max-width: calc(50%-5px);
     }
-    form .column {
-        width:50% !important;
-    }
+
+        form .field label {
+            font-size: 0.5rem;
+        }
+
+        form .field input:focus ~ label,
+        form .field input:valid ~ label {
+            font-size: 4px !important;
+        }
 }
-    /* Footer*/
+/* Footer*/
 footer {
     position: absolute;
     bottom: 0;

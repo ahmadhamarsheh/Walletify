@@ -1,0 +1,27 @@
+﻿.mycard {
+    background-color: #50c878;
+    width: 30%;
+    color: white;
+    padding: 2rem 2rem;
+    text-transform: uppercase;
+    border-radius: .5rem;
+}
+
+.cards {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 3rem;
+}
+
+.cards p {
+    font-size: 2rem;
+    color: white;
+}
+
+.col-6 {
+    padding: 5rem;
+}

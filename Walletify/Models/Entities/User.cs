@@ -20,10 +20,7 @@ namespace Walletify.Models.Entities
             ErrorMessage = "The Password must be at least 8 characters long and, " +
             "contains one special character, one number, one uppercase, and one lower case")]
         public string Password { get; set; }
-        [Required]
-        public decimal Balance { get; set; }
-        [Required]
-        public decimal SavedAmountPerMonth { get; set; }
+
         public DateTime CreationDate { get; set; } = DateTime.Now;
 
     }

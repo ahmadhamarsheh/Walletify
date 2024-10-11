@@ -1,4 +1,4 @@
-﻿using System.Transactions;
+﻿using Walletify.Models.Entities;
 
 namespace Walletify.Repositories.Interfaces
 {

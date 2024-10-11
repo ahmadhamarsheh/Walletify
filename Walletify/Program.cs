@@ -1,8 +1,17 @@
+using Hangfire;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Walletify.ApplicationDbContext;
+using Walletify.Controllers;
+using Walletify.DependencyInjection;
+using Walletify.EmailService;
+using Walletify.Models.Entities;
 using Walletify.Repositories.Implementation;
 using Walletify.Repositories.Interfaces;
+using Walletify.ViewModel;
+using EmailSender = Walletify.EmailService.EmailSender;
+
 namespace Walletify
 {
     public class Program
@@ -16,10 +25,41 @@ namespace Walletify
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
             );
-            // Configure Factory
-            builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();
+            //// Configure Factory
+            //builder.Services.AddTransient<IEmailSender,EmailSender>();
 
+            // Register your IEmailSender service here
+            builder.Services.AddScoped<IEmailSender, EmailSender>();
+
+            builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>()
+                .AddIdentityDependencyInjection();
+
+          
+
+            // Add auto mapper
+            builder.Services.AddAutoMapper(typeof(Program), typeof(MappingProfile));
+            // Add Hangfire services
+            builder.Services.AddHangfire(config =>
+                config.UseSqlServerStorage(builder.Configuration.GetConnectionString("DefaultConnection"))
+            );
+
+            // Add the Hangfire server
+            builder.Services.AddHangfireServer();
             var app = builder.Build();
+            // Enable Hangfire Dashboard
+            app.UseHangfireDashboard();
+
+            // Map routes for Hangfire Dashboard (optional: secured access can be configured here)
+            app.MapHangfireDashboard();
+            // Example of a recurring job
+            RecurringJob.AddOrUpdate<SavingController>(
+                "UpdateSavingTargetAmount",
+                    service =>
+                            service.UpdateSavingTargetAmountForAllUsers(),// Reset the operation completed flag
+            Cron.Monthly // Run this on the 1st of every month
+            );
+
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -32,11 +72,14 @@ namespace Walletify
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
+
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Authentication}/{action=Index}/{id?}");
 
             app.Run();
         }

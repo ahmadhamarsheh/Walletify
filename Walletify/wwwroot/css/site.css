@@ -12,9 +12,6 @@ body{
     justify-content: center;
     flex-direction: column;
 }
-p {
-    color: rgb(2, 48, 32);
-}
 
 nav, footer {
     height: 3rem;
@@ -28,6 +25,9 @@ nav {
     z-index: 10;
     padding: 2rem;
 }
+nav .container img{
+    cursor: pointer;
+}
 
 /* Footer*/
 footer {
@@ -35,6 +35,15 @@ footer {
     bottom: 0;
     height: 4rem;
 }
+
+.navbar-brand {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 15; 
+    padding-left: 1rem; 
+}
+
 
 @media(max-width: 450px){
     footer .container {

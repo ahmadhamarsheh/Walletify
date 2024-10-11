@@ -1,0 +1,52 @@
+﻿@model Walletify.ViewModel.Identity.RegisterViewModel;
+@{
+    ViewBag.Title = "Walletify-Register";
+}
+@section CustomCss {
+    <link rel="stylesheet" href="~/css/StyleRegister.css" asp-append-version="true" />
+}
+<section class="d-flex justify-content-center align-items-center pt-3">
+    <div class="container  d-flex align-items-center">
+        <div class="content">
+            <div class="title text-center text-capitalize fw-bolder">Register form</div>
+            <form asp-action="Register" asp-controller="Authentication" class="d-flex align-items-center justify-content-between flex-wrap">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="field">
+                    <label>Email Address</label>
+                    <input asp-for="Email" type="email" required />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="field">
+                    <label>Username</label>
+                    <input asp-for="UserName" type="text" required />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="field">
+                    <label>Password</label>
+                    <input asp-for="Password" type="password" required />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="field">
+                    <label>Confirm Password</label>
+                    <input asp-for="ConfirmPassword" type="password" required />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="column d-flex justify-content-center align-items-center flex-column">
+                    <div class="feild button w-100">
+                        <button asp-action="Register" asp-controller="Authentication" class="text-center text-capitalize">register</button>
+                    </div>
+                    <div class="signin-link w-100">Already have an account?<a asp-action="Signin" asp-controller="Authentication">Signin</a></div>
+                </div>
+            </form>
+        </div>
+        <div class="img">
+            <img src="@Url.Content("~/Images/Signup.gif")" class="w-100 h-100" />
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

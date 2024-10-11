@@ -1,32 +1,146 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" />
     <!-- Common CSS -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/sidemenu.css" asp-append-version="true" />
     <!-- Section for page-specific CSS -->
     @RenderSection("CustomCss", required: false)
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Dashboard/plugins/fontawesome-free/css/all.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/Dashboard/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/Dashboard/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/Dashboard/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Dashboard/css/adminlte.min.css">
+    <style>
+        .main {
+            min-height: 100vh;
+        }
+    </style>
+
 </head>
 <body>
-        <!-- Nav Bar -->
-        <nav class="d-flex align-items-center justify-content-between">
-            <div class="container">
-                <a class="navbar-brand" onclick="toggleNav()"><img src="~/images/LogoGsgWhite.png" alt="Logo" style="height:50px;" class="d-inline-block align-text-top" /></a>
-            </div>
-        </nav>
-        <!-- Main content area -->
-        <main>
+
+    <!-- Nav Bar -->
+    <nav class="d-flex align-items-center justify-content-between">
+        <div class="container">
+            <a class="navbar-brand" onclick="toggleNav()">
+                <img src="~/images/LogoGsgWhite.png" alt="Logo" style="height:50px;" class="d-inline-block align-text-top" />
+            </a>
+        </div>
+    </nav>
+
+    <!-- Sidemenu -->
+    <div id="sidemenu" class="sidemenu">
+        <a href="javascript:void(0)" class="close-btn" onclick="toggleNav()">&times;</a>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <li class="nav-item">
+                <a asp-action="Index" asp-controller="Authentication" class="nav-link active">
+                    <p>
+                        <i class="bi bi-house"></i>&nbsp;&nbsp;
+                        Home
+                    </p>
+                </a>
+                <a asp-action="Register" asp-controller="Authentication" class="nav-link active">
+                    <p>
+                        <i class="bi bi-person-plus"></i>&nbsp;&nbsp;
+                        Register
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a asp-action="Signin" asp-controller="Authentication" class="nav-link active">
+                    <p>
+                        <i class="bi bi-clipboard"></i>&nbsp;&nbsp;
+                        Sign In
+                    </p>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a asp-action="Index" asp-controller="Dashboard" class="nav-link active">
+                    <p>
+                        <i class="bi bi-speedometer2"></i>&nbsp;&nbsp;
+                        Dashboard
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a asp-action="Income" asp-controller="Transaction" class="nav-link active">
+                    <p>
+                        <i class="bi bi-journal-plus"></i>&nbsp;&nbsp;
+                        Income
+                    </p>
+                </a>
+
+            </li>
+            <li class="nav-item ">
+                <a asp-action="Spending" asp-controller="Transaction" class="nav-link active">
+                    <p>
+                        <i class="bi bi-journal-minus"></i>&nbsp;&nbsp;
+                        Spending
+                    </p>
+                </a>
+
+            </li>
+            <li class="nav-item ">
+                <a asp-action="UpdateAccount" asp-controller="Accounts" class="nav-link active">
+                    <p>
+                        <i class="bi bi-gear"></i>&nbsp;&nbsp;
+                        Account Settings
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <form asp-action="Logout" asp-controller="Authentication" method="post" style="display:inline;">
+                    <button type="submit" class="nav-link active" style="background: none; border: none; color: white; font-size: 18px; padding: 8px 8px 8px 32px; transition: 0.3s;">
+                        <p>
+                            <i class="bi bi-box-arrow-in-right"></i>&nbsp;&nbsp;
+                            Signout
+                        </p>
+                    </button>
+                </form>
+            </li>
+        }
+    </div>
+
+    <!-- Overlay for closing sidemenu -->
+    <div id="overlay" class="overlay" onclick="toggleNav()"></div>
+
+
+
+    <!-- Main content area -->
+    <main class="main container px-5">
         @RenderBody()
-        </main>
-        <!-- Footer -->
-        <footer class="d-flex align-items-center justify-content-center flex-column">
-            <div class="container text-white  d-flex justify-content-center align-items-center flex-column fs-6">
-                <span class="">© 2024 Walletify. All rights reserved.</span>
-                <a>Privacy Policy</a>
-            </div>
-        </footer>
+    </main>
+    <!-- Footer -->
+    <footer class="d-flex align-items-center justify-content-center flex-column">
+        <div class="container text-white  d-flex justify-content-center align-items-center flex-column fs-6">
+            <span class="">© 2024 Walletify. All rights reserved.</span>
+            <a>Privacy Policy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/sidemenu.js"></script>
+
+    <!-- Scripts section for page-specific JS -->
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

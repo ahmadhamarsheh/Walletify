@@ -1,0 +1,43 @@
+﻿@model Walletify.ViewModel.Identity.LoginViewModel;
+@{
+    ViewBag.Title = "Walletify-Login";
+}
+@section CustomCss {
+    <link rel="stylesheet" href="~/css/StyleSignin.css" asp-append-version="true" />
+}
+<section class="d-flex justify-content-center align-items-center pt-3">
+    <div class="container  d-flex align-items-center">
+        <div class="content w-50">
+            <div class="title text-center text-capitalize fw-bolder">Signin form</div>
+
+            <div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </div>
+            <form asp-action="Signin" asp-controller="Authentication" method="post">
+                <div class="field">
+                    <label>Email Address</label>
+                    <input type="email" asp-for="Email" required />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="field">
+                    <label>Password</label>
+                    <input type="password" asp-for="Password" required />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="pass-link"><a asp-action="SendEmailToResetPassword" asp-controller="Authentication">Forget Password?</a></div>
+                <div class="form-group form-check mt-2">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
+                    </label>
+                </div>
+                <div class="field">
+                    <button type="submit"class="text-center text-capitalize">login</button>
+                </div>
+                <div class="signup-link">Don't have an account?<a asp-action="Register" asp-controller="Authentication">Signup</a></div>
+            </form>
+        </div>
+        <div class="img w-50">
+            <img src="@Url.Content("~/Images/login.gif")" class="w-100 h-100" />
+        </div>
+    </div>
+</section>

@@ -1,0 +1,33 @@
+﻿@model Walletify.EmailService.EmailModel.EmailViewModel
+
+@{
+    ViewData["Title"] = "Enter Confirmation Code";
+}
+@section CustomCss {
+    <link rel="stylesheet" href="~/css/StyleConfirmEmail.css" asp-append-version="true" />
+}
+
+<section class="d-flex justify-content-center align-items-center pt-3">
+    <div class="container  d-flex align-items-center">
+        <div class="content w-50">
+            <div class="title text-center text-capitalize fw-bolder">Confirm Email</div>
+            <form asp-action="EnterConfirmationCode" asp-controller="Authentication" method="post">
+             
+                   <div class="field">
+                    <input asp-for="Email" required  type="hidden" Value="@ViewBag.Email"/>
+                </div>
+                <div class="field">
+                    <label asp-for="Code">Code</label>
+                    <input asp-for="Code" required />
+                </div>
+
+                <div class="feild button w-100">
+                    <button type="Submit" class="text-center text-capitalize">Confirm Email</button>
+                </div>
+            </form>
+        </div>
+        <div class="img w-50">
+            <img src="@Url.Content("~/Images/Confirmed.gif")" class="w-100 h-100" />
+        </div>
+    </div>
+</section>

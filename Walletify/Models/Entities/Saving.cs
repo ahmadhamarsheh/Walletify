@@ -7,15 +7,14 @@ namespace Walletify.Models.Entities
     {
         public int Id { get; set; }
         [Required]
-        public int UserId { get; set; }
-        [Required]
-        public decimal SavingTargetAmount { get; set; }
+        public string UserId { get; set; }
+
         [Required]
         public decimal TotalSavedAmount { get; set; }
 
-
         //Navigation Properties
         [ForeignKey("UserId")]
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
+
     }
 }

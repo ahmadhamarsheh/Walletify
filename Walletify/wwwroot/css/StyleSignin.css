@@ -4,6 +4,14 @@
     display: flex;
     flex-direction: column;
 }
+section{
+    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: calc(100vh - 6rem);
+}
 .content {
     margin-right: 5.5rem;
 }
@@ -23,14 +31,13 @@
     padding: 10px 30px 50px;
 }
 form .field {
-    height: 50px;
     width: 100%;
     position: relative;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 form .field input,
 form button{
-    height: 100%;
+    height: 3rem;
     width: 100%;
     border-radius: 25px;
     border: solid 1px lightgray;
@@ -43,23 +50,11 @@ form .field input:focus{
     border-color: rgb(25, 135, 84);
 }
 form .field label {
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    transform: translateY(-50%);
-    pointer-events: none;
-    color: #999;
-    transition: all 0.3s ease;
-    font-size: 17px;
-}
-form .field input:focus ~ label,
-form .field input:valid ~ label {
-    top: 0%;
-    transform: translateY(-50%);
-    background-color: #fff;
-    font-size: 16px;
     color: rgb(25, 135, 84);
+    font-size: 17px;
+    padding-left: 0.5rem;
 }
+
 form .field button {
     background: linear-gradient(135deg, #50c878 10%, #3d9970 100%);
     color: #fff;
@@ -114,7 +109,7 @@ form .signup-link a:hover {
         height: 2.4rem;
     }
 }
-/*@media(max-width: 1000px){
+@media(max-width: 1000px){
     .container .img {
         display: none;
     }
@@ -131,8 +126,6 @@ form .signup-link a:hover {
         width: 100%;
     }
 }
-*/
-/* Footer*/
 footer{
     position: absolute;
     bottom: 0;

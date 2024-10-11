@@ -1,39 +1,166 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Walletify.Models.Entities;
+using Walletify.Repositories.Interfaces;
+using Walletify.ViewModel.Transactions;
 
 namespace Walletify.Controllers
 {
-    public class TransactionController : Controller
+   [Authorize]
+   public class TransactionController : Controller
     {
-        public IActionResult CreateTransaction()
+        
+        private readonly IRepositoryFactory _repository;
+        public TransactionController(IRepositoryFactory repository)
         {
+            _repository = repository;
+        }
+
+        [HttpGet]
+        public IActionResult Spending()
+        {
+            var outcomeCategories = _repository.Category
+            .FindByCondition(c => c.CategoryType == CategoryType.Spending)
+            .ToList();
+            ViewBag.outcomeCategories = outcomeCategories;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Spending(TransactionViewModel model)
+        {
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (userId != null)
+            {
+
+                var account = _repository.Account.FindByCondition(a => a.UserId == userId).FirstOrDefault();
+                if (account == null )
+                {
+                    ModelState.AddModelError("", "Please Fill your Financial Information.");
+                    return View(model); // Return the view with the current ViewModel to show error
+                }
+
+                var notAllowSpending = ((account.Balance == 0) || ((account.Balance - model.Amount) < 0));
+
+                if (notAllowSpending)
+                {
+                    //ALERT
+                    ModelState.AddModelError("", "Balance Not Enough.");
+                }
+
+                if (ModelState.IsValid)
+                {
+                    var transaction = new Transaction
+                    {
+                        UserId = userId,
+                        Amount = model.Amount,
+                        Note = model.Note,
+                        CategoryId = model.CategoryId,
+                        TransationType = TransationType.Spending,
+                        TransactionDate = DateTime.Now
+                    };
+
+                    account.Balance -= model.Amount;
+                    try
+                    {
+                        // Transaction and account update
+                        _repository.Transaction.Create(transaction);
+                        _repository.Account.Update(account);
+                        _repository.Save();
+                        return RedirectToAction("Index", "Dashboard");
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log the error and handle failure case
+                        ModelState.AddModelError("", "Transaction failed to save.");
+                    }
+                }
+                var outcomeCategories = _repository.Category
+                  .FindByCondition(c => c.CategoryType == CategoryType.Spending)
+                  .ToList();
+
+
+                ViewBag.outcomeCategories = outcomeCategories;
+
+                return View(model);
+            }
+            else
+            {
+                ModelState.AddModelError("", "Invalid user ID.");
+                return RedirectToAction("Index", "Authentication");
+            }
+            
+        }
+
+        [HttpGet]
+        public IActionResult Income()
+        {
+            var incomeCategories = _repository.Category
+            .FindByCondition(c => c.CategoryType == CategoryType.Income)
+            .ToList();
+
+
+            ViewBag.incomeCategories = incomeCategories;
             return View();
         }
 
-        public IActionResult UpdateTransaction()
+        [HttpPost]
+        public IActionResult Income(TransactionViewModel model)
         {
-            return View();
-        }
+            
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (userId != null)
+            {
 
-        [HttpPut]
-        public IActionResult UpdaetTransaction()
-        {
-            return View();
-        }
+                var account = _repository.Account.FindByCondition(a => a.UserId == userId).FirstOrDefault();
+                if (account == null)
+                {
+                    ModelState.AddModelError("", "User not found.");
+                    return View(model); // Return the view with the current ViewModel to show error
+                }
+                if (ModelState.IsValid)
+                {
+                    var transaction = new Transaction
+                    {
+                        UserId = userId,
+                        Amount = model.Amount,
+                        Note = model.Note,
+                        CategoryId = model.CategoryId,
+                        TransationType = TransationType.Income,
+                        TransactionDate = DateTime.Now
+                    };
 
-        [HttpDelete]
-        public IActionResult DeleteTransaction()
-        {
-            return View();
-        }
+                    account.Balance +=  model.Amount;
 
-        public IActionResult GetAllTransactions()
-        {
-            return View();
-        }
+                    try
+                    {
+                        // Transaction and account update
+                        _repository.Transaction.Create(transaction);
+                        _repository.Account.Update(account);
+                        _repository.Save();
+                        return RedirectToAction("Index", "Dashboard");
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log the error and handle failure case
+                        ModelState.AddModelError("", "Transaction failed to save.");
+                    }
 
-        public IActionResult GetTransaction(int id)
-        {
-            return View();
+                }
+                var incomeCategories = _repository.Category
+                  .FindByCondition(c => c.CategoryType == CategoryType.Income)
+                  .ToList();
+
+
+                ViewBag.incomeCategories = incomeCategories;
+
+                return View(model);
+            }
+            else
+            {
+                ModelState.AddModelError("", "Invalid user ID.");
+                return RedirectToAction("Index", "Authentication");
+            }
+            
         }
     }
 }

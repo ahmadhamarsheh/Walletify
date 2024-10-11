@@ -12,21 +12,29 @@ namespace Walletify.Controllers
         {
             _logger = logger;
         }
-
-        public IActionResult Index()
+        public IActionResult BadRequest(string message)
         {
             return View();
         }
-
-        public IActionResult Privacy()
+        public IActionResult NotFound()
         {
             return View();
         }
+        //public IActionResult Index()
+        //{
+        //    return Content("Ok");
+        //    return View();
+        //}
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        //public IActionResult Privacy()
+        //{
+        //    return View();
+        //}
+
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //public IActionResult Error()
+        //{
+        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //}
     }
 }

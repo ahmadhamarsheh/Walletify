@@ -1,0 +1,74 @@
+﻿/* Style for the sidemenu */
+.sidemenu {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    background: linear-gradient(135deg, #50c878 10%, #3d9970 100%); /* Updated background */
+    transition: 0.3s;
+    overflow-x: hidden;
+    padding-top: 20px;
+    color: white; /* Set text color to white */
+    z-index: 10;
+}
+
+    .sidemenu a {
+        cursor: pointer;
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 18px;
+        color: white; /* Change link color to white */
+        display: block;
+        transition: 0.3s;
+    }
+
+        .sidemenu a:hover {
+            color: #f1f1f1; /* Change hover color */
+        }
+
+    .sidemenu .close-btn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+        color: white; /* Close button color */
+    }
+
+.open {
+    left: 0;
+}
+
+.overlay {
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 250px; /* يبدأ من الجانب الأيمن للقائمة الجانبية */
+    width: calc(100% - 250px); /* يغطي باقي الشاشة فقط */
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.sidemenu.open ~ .overlay {
+    display: block; /* عند فتح القائمة، يظهر الـ overlay */
+}
+
+
+/* Dropdown container for the transactions */
+.dropdown-container {
+    display: none;
+    padding-left: 30px;
+}
+
+.dropdown-btn i {
+    margin-left: 10px;
+}
+
+li {
+    list-style-type: none; /* إخفاء النقاط */
+}
+p{
+    color:white;
+}

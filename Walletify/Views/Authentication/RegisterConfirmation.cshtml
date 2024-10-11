@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Register Confirmation";
+}
+
+@section CustomCss {
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 60px); /* خصص ارتفاع الصفحة */
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa; /* لون خلفية فاتح */
+        }
+
+        .confirmation-container {
+            text-align: center;
+            padding: 20px;
+            background-color: white; /* لون خلفية للعنصر */
+            border-radius: 10px; /* زوايا دائرية */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* ظل */
+        }
+
+        h1 {
+            color: #3d9970; /* لون العنوان */
+        }
+
+        p {
+            font-size: 1.2rem; /* حجم الخط */
+        }
+    </style>
+}
+
+<div class="confirmation-container">
+    <h1>@ViewData["Title"]</h1>
+    <p>
+        تم التسجيل بنجاح. كود التأكيد الخاص بك هو: <strong>@ViewBag.ConfirmationCode</strong>
+    </p>
+    <p>
+        يرجى إدخال كود التأكيد أدناه:
+    </p>
+    <a asp-action="EnterConfirmationCode" class="btn btn-primary">أدخل كود التأكيد</a>
+</div>
