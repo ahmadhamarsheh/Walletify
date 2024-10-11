@@ -73,6 +73,25 @@
         font-weight: bold;
     }
 
+    .table-striped tbody tr:nth-of-type(odd) {
+        color: black;
+        background-color: transparent;
+    }
+
+    .table-striped tbody tr:nth-of-type(even) {
+        color: white;
+        background-color: #50c878;
+    }
+
+    .ayaeshi {
+        display: flex;
+        justify-content: space-between;
+    }
+
+        .ayaeshi p {
+            color: black;
+        }
+
 </style>
 
 
@@ -142,7 +161,12 @@
             </div>
         </div>
     </div>
-    <div class="mt-4">
+
+    <div class="mt-4 mb-5">
+        <div class="ayaeshi">
+            <p>Progress bar</p>
+            <p>You can do it</p>
+        </div>
         <div class="progress" style="height: 25px;">
             <div id="progressBar" class="progress-bar progress-bar-striped"
                  role="progressbar"
